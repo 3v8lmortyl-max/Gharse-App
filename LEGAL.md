@@ -1,15 +1,11 @@
-MIT License
+# Terms of Use – Gharse App
 
-Copyright (c) 2025 [Shaik Muzamil]
+This source code and all associated files are the intellectual property of [Shaik Muzamil].
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+🛑 This project is private and proprietary.
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+- Redistribution, reproduction, or modification of this code in any form is strictly prohibited.
+- No part of this repository may be used in commercial or non-commercial projects.
+- Unauthorized access, sharing, or publication of any content from this repository is a violation of intellectual property laws.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND.
+© 2025 [Shaik Muzamil]. All rights reserved.
