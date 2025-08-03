@@ -1,25 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GharSe - Find & Offer Services</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" href="logo.png" type="image/png">
+</head>
 <body>
   <header>
-    <h1>Welcome to GharSe</h1>
-    <p>Find or offer services in your area – tuition, house help, rentals, and more.</p>
+    <img src="logo.png" alt="GharSe Logo" class="logo" />
+    <h1>GharSe</h1>
+    <input type="text" id="search" placeholder="Search services, rentals...">
   </header>
 
-  <section>
-    <h2>Submit a Service</h2>
-    <form id="serviceForm">
-      <input type="text" id="name" placeholder="Your Name" required />
-      <input type="text" id="service" placeholder="Service Offered (e.g., Tuition, Plumbing)" required />
-      <input type="text" id="location" placeholder="Your Location" required />
-      <input type="text" id="contact" placeholder="Contact Info" required />
-      <button type="submit">Add Service</button>
-    </form>
-  </section>
+  <nav>
+    <button onclick="navigateTo('home')">🏠 Home</button>
+    <button onclick="navigateTo('services')">🛠️ Services</button>
+    <button onclick="navigateTo('rentals')">🏡 Rentals</button>
+    <button onclick="navigateTo('profile')">👤 Profile</button>
+    <button onclick="navigateTo('admin')">⚙️ Admin</button>
+  </nav>
 
-  <section>
-    <h2>Available Services</h2>
-    <input type="text" id="searchBox" placeholder="Search services..." />
-    <ul id="serviceList"></ul>
-  </section>
+  <main id="app"></main>
 
   <script src="script.js"></script>
 </body>
+</html>
