@@ -1,0 +1,12 @@
+[
+  {
+    "id": "svc1",
+    "title": "Plumber – Tap Repair",
+    "category": "plumbing",
+    "description": "Quick leak fixes, pipe replacements",
+    "location": "Ibrahimpatnam",
+    "rate": 200,
+    "contact": { "phone": "9876543210", "whatsapp": "9876543210" },
+    "photos": []
+  }
+]
