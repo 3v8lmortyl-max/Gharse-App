@@ -1,0 +1,1 @@
+console.log("Gharse app initialized.");
