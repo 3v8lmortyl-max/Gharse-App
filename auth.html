@@ -1,21 +1,26 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Login | GharSe</title>
+  <meta charset="UTF-8">
+  <title>Admin Login – GharSe</title>
   <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
-  <h1>Login or Sign Up</h1>
-
-  <form>
-    <input type="text" placeholder="Username" required /><br />
-    <input type="password" placeholder="Password" required /><br />
-    <button type="submit">Login</button>
-  </form>
-
-  <p>Don’t have an account? <a href="#">Sign up</a></p>
-  <a href="index.html">← Back to Home</a>
+  <main style="padding:80px 16px;">
+    <h2>Admin Panel Login</h2>
+    <input type="text" id="username" placeholder="Username"><br><br>
+    <input type="password" id="password" placeholder="Password"><br><br>
+    <button onclick="login()">Login</button>
+  </main>
+  <script>
+    function login(){
+      const user=document.getElementById("username").value;
+      const pass=document.getElementById("password").value;
+      if(user==="YourAdminUsername" && pass==="YourAdminPassword"){
+        window.location.href="Dashboard.html";
+      }else{alert("Access Denied");}
+    }
+  </script>
 </body>
 </html>
