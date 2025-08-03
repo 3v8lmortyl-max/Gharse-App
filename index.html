@@ -3,27 +3,39 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>GharSe - Find & Offer Services</title>
+  <title>GharSe – Find & Offer Services</title>
+
+  <!-- Google Fonts & Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+
+  <!-- Styles -->
   <link rel="stylesheet" href="style.css" />
-  <link rel="icon" href="logo.png" type="image/png">
+
+  <!-- Favicon -->
+  <link rel="icon" href="logo.png" type="image/png" />
 </head>
+
 <body>
+  <!-- HEADER -->
   <header>
-    <img src="logo.png" alt="GharSe Logo" class="logo" />
+    <img src="logo.png" alt="GharSe logo" class="logo">
     <h1>GharSe</h1>
-    <input type="text" id="search" placeholder="Search services, rentals...">
+    <input id="search" placeholder="Search services, rentals…" />
   </header>
 
-  <nav>
-    <button onclick="navigateTo('home')">🏠 Home</button>
-    <button onclick="navigateTo('services')">🛠️ Services</button>
-    <button onclick="navigateTo('rentals')">🏡 Rentals</button>
-    <button onclick="navigateTo('profile')">👤 Profile</button>
-    <button onclick="navigateTo('admin')">⚙️ Admin</button>
-  </nav>
-
+  <!-- MAIN ROUTER OUTLET -->
   <main id="app"></main>
 
+  <!-- BOTTOM NAV -->
+  <footer class="bottom-nav">
+    <button onclick="navigateTo('home')"><span class="material-icons-outlined">home</span></button>
+    <button onclick="navigateTo('services')"><span class="material-icons-outlined">construction</span></button>
+    <button onclick="navigateTo('rentals')" class="cta"><span class="material-icons-outlined">house</span></button>
+    <button onclick="navigateTo('profile')"><span class="material-icons-outlined">person</span></button>
+  </footer>
+
+  <!-- App Logic -->
   <script src="script.js"></script>
 </body>
 </html>
