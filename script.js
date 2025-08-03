@@ -1,41 +1,34 @@
-const form = document.getElementById("serviceForm");
-const serviceList = document.getElementById("serviceList");
-const searchBox = document.getElementById("searchBox");
 
-let services = JSON.parse(localStorage.getItem("services")) || [];
+const app = document.getElementById('app');
+const ADMIN_USERNAME = "yourUsername";
+const ADMIN_PASSWORD = "yourPassword";
 
-function displayServices(filtered = services) {
-  serviceList.innerHTML = "";
-  filtered.forEach((item, index) => {
-    const li = document.createElement("li");
-    li.innerHTML = `<strong>${item.service}</strong> by ${item.name} at ${item.location} — Contact: ${item.contact}`;
-    serviceList.appendChild(li);
-  });
+function navigateTo(page) {
+  if (page === 'home') {
+    app.innerHTML = `<h2>Welcome to GharSe</h2><p>Find or offer hyperlocal services near you.</p>`;
+  } else if (page === 'services') {
+    app.innerHTML = `<h2>🛠️ Services</h2><p>Post or find services like tuition, electricians, etc.</p>`;
+  } else if (page === 'rentals') {
+    app.innerHTML = `<h2>🏡 Rentals</h2><p>List or discover rental properties or items.</p>`;
+  } else if (page === 'profile') {
+    app.innerHTML = `<h2>👤 Your Profile</h2><p>View and update your profile, contact details, and photos.</p>`;
+  } else if (page === 'admin') {
+    promptAdminLogin();
+  }
 }
 
-form.addEventListener("submit", (e) => {
-  e.preventDefault();
-  const newService = {
-    name: document.getElementById("name").value,
-    service: document.getElementById("service").value,
-    location: document.getElementById("location").value,
-    contact: document.getElementById("contact").value,
-  };
-  services.push(newService);
-  localStorage.setItem("services", JSON.stringify(services));
-  form.reset();
-  displayServices();
-});
+function promptAdminLogin() {
+  const user = prompt("Enter Admin Username:");
+  const pass = prompt("Enter Admin Password:");
+  if (user === ADMIN_USERNAME && pass === ADMIN_PASSWORD) {
+    app.innerHTML = `<h2>⚙️ Admin Panel</h2>
+      <p>Welcome, admin! Here you can manage themes, content, and users.</p>`;
+  } else {
+    alert("Access Denied");
+  }
+}
 
-searchBox.addEventListener("input", () => {
-  const keyword = searchBox.value.toLowerCase();
-  const filtered = services.filter(
-    (s) =>
-      s.name.toLowerCase().includes(keyword) ||
-      s.service.toLowerCase().includes(keyword) ||
-      s.location.toLowerCase().includes(keyword)
-  );
-  displayServices(filtered);
+document.getElementById('search').addEventListener('input', function(e) {
+  const query = e.target.value.toLowerCase();
+  app.innerHTML = `<p>Showing results for: <strong>${query}</strong></p>`;
 });
-
-window.onload = displayServices;
