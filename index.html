@@ -1,53 +1,138 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
   <title>GharSe – Find & Offer Services</title>
 
   <!-- Google Fonts & Icons -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
 
-  <!-- Styles -->
-  <link rel="stylesheet" href="style.css" />
+  <!-- Inline CSS for quick drop-in -->
+  <style>
+  :root{
+    --color-primary:#00a58a;
+    --color-accent:#ff8a50;
+    --color-bg:#fdfdfd;
+    --color-surface:#fff;
+    --color-text:#212121;
+    --color-muted:#757575;
+    --font-family:'Poppins',sans-serif;
+    --shadow-card:0 2px 6px rgba(0,0,0,.06);
+    --radius:16px;
+  }
+  *{box-sizing:border-box;margin:0}
+  body{
+    font-family:var(--font-family);background:var(--color-bg);
+    color:var(--color-text);font-size:15px;
+  }
+  header{
+    display:flex;align-items:center;gap:8px;
+    padding:8px 14px;background:var(--color-surface);position:sticky;top:0;z-index:10
+  }
+  .logo{height:32px}
+  h1{font-size:20px;font-weight:500;letter-spacing:-.3px}
+  #search{
+    flex:1;padding:10px 14px;border:1px solid #e0e0e0;
+    border-radius:var(--radius);font-size:13px
+  }
+  main{padding:72px 16px 70px}
+  .card{
+    background:var(--color-surface);border-radius:var(--radius);
+    box-shadow:var(--shadow-card);padding:16px;margin-bottom:16px
+  }
+  .card img{
+    width:100%;height:160px;object-fit:cover;
+    border-radius:var(--radius);background:#e0e0e0;margin-bottom:8px
+  }
+  .card h3{font-size:18px;margin:0 0 4px}
+  .meta{font-size:13px;color:var(--color-muted)}
+  .price{color:var(--color-accent);font-weight:600}
+  footer.bottom-nav{
+    position:fixed;bottom:0;left:0;right:0;
+    display:flex;justify-content:space-around;
+    background:var(--color-surface);padding:6px 0
+  }
+  footer button{
+    background:none;border:none;color:var(--color-muted);
+    transition:transform .15s
+  }
+  footer button:active{transform:scale(.94)}
+  footer .cta{color:var(--color-accent)}
+  .material-icons-outlined{font-size:26px}
+  </style>
 
   <!-- Favicon -->
-  <link rel="icon" href="logo.png" type="image/png" />
+  <link rel="icon" href="file_000000001c2861f6a38f275dee1d65fb.png" type="image/png" />
 </head>
-
 <body>
+
   <!-- HEADER -->
   <header>
-    <img src="logo.png" alt="GharSe logo" class="logo">
+    <img src="file_000000001c2861f6a38f275dee1d65fb.png" alt="GharSe logo" class="logo">
     <h1>GharSe</h1>
     <input id="search" placeholder="Search services, rentals…" />
   </header>
 
-  <!-- MAIN ROUTER OUTLET -->
+  <!-- MAIN OUTLET -->
   <main id="app"></main>
 
   <!-- BOTTOM NAV -->
   <footer class="bottom-nav">
-    <button onclick="navigateTo('home')">
-      <span class="material-icons-outlined">home</span>
-    </button>
-
-    <button onclick="navigateTo('services')">
-      <span class="material-icons-outlined">construction</span>
-    </button>
-
-    <!-- Rentals button — icon fixed -->
-    <button onclick="navigateTo('rentals')" class="cta">
-      <span class="material-icons-outlined">real_estate_agent</span>
-    </button>
-
-    <button onclick="navigateTo('profile')">
-      <span class="material-icons-outlined">person</span>
-    </button>
+    <button onclick="nav('home')"><span class="material-icons-outlined">home</span></button>
+    <button onclick="nav('services')"><span class="material-icons-outlined">construction</span></button>
+    <button onclick="nav('rentals')" class="cta"><span class="material-icons-outlined">real_estate_agent</span></button>
+    <button onclick="nav('profile')"><span class="material-icons-outlined">person</span></button>
   </footer>
 
-  <!-- App Logic -->
-  <script src="script.js"></script>
+  <!-- JS -->
+  <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.6.2/dist/fuse.min.js"></script>
+  <script>
+  // simple router
+  const routes={
+    home:()=>"<p>Welcome to <strong>GharSe</strong>. Find nearby services & rentals.</p>",
+    services:loadServices,
+    rentals:()=>"<p>Upload or browse rental listings (coming soon).</p>",
+    profile:()=>"<p>Manage your info, contact details, and uploads.</p>"
+  };
+  function nav(s){location.hash='#/'+s;render()}
+  window.addEventListener('hashchange',render);window.addEventListener('load',render);
+
+  async function render(){
+    const key=location.hash.split('/')[1]||'home';
+    const out=document.getElementById('app');
+    out.innerHTML=typeof routes[key]==='function'?await routes[key]():routes[key];
+  }
+
+  // load services + cache
+  let listCache,fuse;
+  async function loadServices(){
+    if(!listCache){
+      const r=await fetch('data/services.json');listCache=await r.json();
+      fuse=new Fuse(listCache,{keys:['title','category','description']});
+    }
+    return listCache.map(card).join('');
+  }
+  const out=document.getElementById('app');
+  function card(s){
+    return `<div class="card">
+      <img src="${s.photos?.[0]||'https://via.placeholder.com/400x250'}">
+      <h3>${s.title}</h3>
+      <div class="meta">${s.category} • ${s.location}</div>
+      <div class="price">₹${s.rate??'—'} / visit</div>
+      <div class="meta"><a href="tel:${s.contact.phone}">Call</a> | <a href="https://wa.me/${s.contact.whatsapp}">WhatsApp</a></div>
+    </div>`;
+  }
+
+  // live search
+  document.getElementById('search').addEventListener('input',async e=>{
+    const q=e.target.value.trim();
+    if(!listCache) await loadServices();
+    const res=q?fuse.search(q).map(r=>r.item):listCache;
+    out.innerHTML=res.map(card).join('');
+  });
+  </script>
 </body>
 </html>
