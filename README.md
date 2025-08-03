@@ -15,3 +15,5 @@ This project is being restarted from scratch with a clean, modular structure.
 - Frontend: HTML, CSS, JS (to be decided)
 - Backend: (to be added)
 - AI integration: ChatGPT + Perplexity
+
+- 🔒 This project is protected under the MIT License. Do not copy or redistribute without proper permission.
