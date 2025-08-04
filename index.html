@@ -284,6 +284,216 @@
       right: 16px;
     }
   }
+    /* Profile Container */
+.profile-container {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Profile Photo Section */
+.profile-photo-section {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.photo-upload {
+  position: relative;
+  display: inline-block;
+  margin-bottom: 12px;
+}
+
+.photo-upload img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid var(--primary);
+}
+
+.photo-btn {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background: var(--primary);
+  color: white;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+.photo-btn:hover {
+  background: #019875;
+}
+
+/* Form Sections */
+.form-section {
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: var(--shadow);
+}
+
+.form-section h4 {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--bg);
+}
+
+/* Form Groups */
+.form-group {
+  margin-bottom: 16px;
+}
+
+.form-group label {
+  display: block;
+  font-weight: 500;
+  color: var(--text);
+  margin-bottom: 6px;
+  font-size: 14px;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 12px 16px;
+  border: 2px solid var(--border);
+  border-radius: 12px;
+  font-size: 15px;
+  transition: all 0.2s ease;
+  font-family: inherit;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(0, 184, 148, 0.1);
+}
+
+.form-group small {
+  display: block;
+  color: var(--text-light);
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+/* Availability Grid */
+.availability-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.availability-grid label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px;
+  background: var(--bg);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-weight: normal !important;
+  margin-bottom: 0 !important;
+}
+
+.availability-grid label:hover {
+  background: #e8f5f3;
+}
+
+.availability-grid input[type="checkbox"] {
+  width: auto;
+  margin: 0;
+}
+
+/* Time Row */
+.time-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+/* Photo Grid */
+.photo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.photo-item {
+  position: relative;
+  aspect-ratio: 1;
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--bg);
+}
+
+.photo-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.photo-remove {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  background: rgba(0,0,0,0.7);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+/* Save Button */
+.save-button {
+  width: 100%;
+  background: var(--primary);
+  color: white;
+  border: none;
+  border-radius: var(--radius);
+  padding: 16px 24px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-top: 20px;
+}
+
+.save-button:hover {
+  background: #019875;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(0, 184, 148, 0.3);
+}
+
+/* Mobile Responsive */
+@media (max-width: 480px) {
+  .time-row {
+    grid-template-columns: 1fr;
+  }
+  
+  .availability-grid {
+    grid-template-columns: 1fr;
+  }
+}
+    
   </style>
 
   <link rel="icon" href="file_000000001c2861f6a38f275dee1d65fb.png" type="image/png" />
@@ -623,5 +833,88 @@
 
     window.addEventListener('hashchange', renderCurrentRoute);
   </script>
+  function initProfileForm() {
+  // Profile photo preview
+  document.getElementById('profilePhoto').addEventListener('change', function(e) {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        document.getElementById('profilePreview').src = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    }
+  });
+
+  // Work photos preview
+  document.getElementById('workPhotos').addEventListener('change', function(e) {
+    const files = Array.from(e.target.files);
+    const photoGrid = document.getElementById('photoPreview');
+    photoGrid.innerHTML = '';
+
+    files.slice(0, 5).forEach((file, index) => {
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const photoDiv = document.createElement('div');
+        photoDiv.className = 'photo-item';
+        photoDiv.innerHTML = `
+          <img src="${e.target.result}" alt="Work photo">
+          <button type="button" class="photo-remove" onclick="this.parentElement.remove()">×</button>
+        `;
+        photoGrid.appendChild(photoDiv);
+      };
+      reader.readAsDataURL(file);
+    });
+  });
+
+  // Form submission
+  document.getElementById('profileForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    // Collect all form data
+    const profileData = {
+      fullName: document.getElementById('fullName').value,
+      phoneNumber: document.getElementById('phoneNumber').value,
+      email: document.getElementById('email').value,
+      location: document.getElementById('location').value,
+      serviceType: document.getElementById('serviceType').value,
+      experience: document.getElementById('experience').value,
+      rate: document.getElementById('rate').value,
+      description: document.getElementById('description').value,
+      startTime: document.getElementById('startTime').value,
+      endTime: document.getElementById('endTime').value,
+      availability: Array.from(document.querySelectorAll('input[type="checkbox"]:checked')).map(cb => cb.value)
+    };
+
+    // Save to localStorage
+    localStorage.setItem('gharseUserProfile', JSON.stringify(profileData));
+    
+    // Show success message
+    alert('🎉 Profile saved successfully! Your information is now public for customers to see.');
+  });
+
+  // Load existing data if available
+  const savedProfile = localStorage.getItem('gharseUserProfile');
+  if (savedProfile) {
+    const data = JSON.parse(savedProfile);
+    
+    // Fill form fields
+    Object.keys(data).forEach(key => {
+      if (key !== 'availability') {
+        const element = document.getElementById(key);
+        if (element) element.value = data[key];
+      }
+    });
+
+    // Check availability boxes
+    if (data.availability) {
+      data.availability.forEach(day => {
+        const checkbox = document.querySelector(`input[value="${day}"]`);
+        if (checkbox) checkbox.checked = true;
+      });
+    }
+  }
+}
+
 </body>
 </html>
