@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -37,26 +38,26 @@
     line-height: 1.5;
   }
 
- /* HEADER - Logo Only */
-header {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 24px 20px; /* slightly more padding for bigger logo */
-  background: var(--surface);
-  border-bottom: 1px solid var(--border); /* keeps separator line */
-  position: sticky;
-  top: 0;
-  z-index: 100;
-}
+  /* HEADER - Logo 200px */
+  header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 24px 20px;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
 
-.logo {
-  height: 200px !important; /* your requested 200px height */
-  width: auto !important;
-  margin: 0; /* clean margins */
-  display: block;
-}
-
+  .logo {
+    height: 200px !important;
+    width: auto !important;
+    margin: 0;
+    display: block;
+  }
+    
   /* SEARCH BAR */
   .search-container {
     padding: 16px 20px 8px;
@@ -278,43 +279,64 @@ header {
     padding: 20px;
   }
 
+  /* Profile Avatar Styles - Option 1 */
   .profile-photo-section {
     text-align: center;
     margin-bottom: 30px;
   }
 
-  .photo-upload {
+  .profile-avatar-container {
     position: relative;
     display: inline-block;
-    margin-bottom: 12px;
+    margin-bottom: 16px;
   }
 
-  .photo-upload img {
-    width: 100px;
-    height: 100px;
+  .profile-avatar {
+    width: 120px;
+    height: 120px;
     border-radius: 50%;
     object-fit: cover;
-    border: 3px solid var(--primary);
+    border: 3px solid var(--border);
+    background: var(--bg);
+    transition: all 0.2s ease;
   }
 
-  .photo-btn {
+  .profile-avatar:hover {
+    border-color: var(--primary);
+  }
+
+  .camera-overlay {
     position: absolute;
-    bottom: 0;
-    right: 0;
+    bottom: 4px;
+    right: 4px;
+    width: 36px;
+    height: 36px;
     background: var(--primary);
-    color: white;
     border-radius: 50%;
-    width: 30px;
-    height: 30px;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    border: 3px solid white;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    transition: all 0.2s ease;
   }
 
-  .photo-btn:hover {
+  .camera-overlay:hover {
     background: #019875;
+    transform: scale(1.1);
+  }
+
+  .profile-photo-section h3 {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 4px;
+  }
+
+  .profile-photo-section p {
+    font-size: 14px;
+    color: var(--text-light);
   }
 
   .form-section {
@@ -620,16 +642,21 @@ header {
     function renderProfile() {
       document.getElementById('app').innerHTML = `
         <div class="profile-container">
-          <!-- Profile Photo Section -->
+          <!-- Profile Photo Section with Option 1 Default Avatar -->
           <div class="profile-photo-section">
-            <div class="photo-upload">
-              <img id="profilePreview" src="https://via.placeholder.com/100x100/00b894/white?text=📷" alt="Profile Photo">
-              <label for="profilePhoto" class="photo-btn">
-                <span class="material-icons-round">camera_alt</span>
+            <div class="profile-avatar-container">
+              <img id="profilePreview" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Ccircle cx='60' cy='60' r='60' fill='%23e9ecef'/%3E%3Cpath d='M60 30c8.3 0 15 6.7 15 15s-6.7 15-15 15-15-6.7-15-15 6.7-15 15-15zm0 45c12.5 0 22.5 7.5 22.5 15H37.5c0-7.5 10-15 22.5-15z' fill='%23636e72'/%3E%3C/svg%3E" alt="Profile Photo" class="profile-avatar">
+              
+              <label for="profilePhotoInput" class="camera-overlay">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="white">
+                  <path d="M12 2C13.1 2 14 2.9 14 4H20C21.1 4 22 4.9 22 6V18C22 19.1 21.1 20 20 20H4C2.9 20 2 19.1 2 18V6C2 4.9 2.9 4 4 4H10C10 2.9 10.9 2 12 2M12 7C9.2 7 7 9.2 7 12S9.2 17 12 17 17 14.8 17 12 14.8 7 12 7Z"/>
+                </svg>
               </label>
-              <input type="file" id="profilePhoto" accept="image/*" hidden>
+              
+              <input type="file" id="profilePhotoInput" accept="image/*" hidden>
             </div>
-            <h3>Upload Your Photo</h3>
+            <h3>Add Profile Photo</h3>
+            <p>Help people recognize you</p>
           </div>
 
           <!-- Profile Form -->
@@ -754,13 +781,16 @@ header {
 
     // Profile Form Functionality
     function initProfileForm() {
-      // Profile photo preview
-      document.getElementById('profilePhoto').addEventListener('change', function(e) {
+      // Profile photo preview with better default handling
+      document.getElementById('profilePhotoInput').addEventListener('change', function(e) {
         const file = e.target.files[0];
         if (file) {
           const reader = new FileReader();
           reader.onload = function(e) {
             document.getElementById('profilePreview').src = e.target.result;
+            // Update the text below
+            document.querySelector('.profile-photo-section h3').textContent = 'Profile Photo';
+            document.querySelector('.profile-photo-section p').textContent = 'Tap to change photo';
           };
           reader.readAsDataURL(file);
         }
@@ -915,4 +945,3 @@ header {
   </script>
 </body>
 </html>
-
