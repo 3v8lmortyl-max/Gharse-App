@@ -1,5 +1,5 @@
 
-<!DOCTYPE html>
+   <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -36,6 +36,11 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+  }
+
+  /* Prevent horizontal scroll on mobile */
+  body, html {
+    overflow-x: hidden;
   }
 
   body {
@@ -96,7 +101,7 @@
     color: white;
   }
 
-  /* PANELS */
+  /* PANELS - FIXED SCROLLING */
   .hamburger-panel, .settings-panel {
     position: fixed;
     top: 0;
@@ -132,6 +137,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-shrink: 0; /* Prevent header from shrinking */
   }
 
   .panel-header h3 {
@@ -157,10 +163,120 @@
     color: var(--text);
   }
 
+  /* FIXED PANEL CONTENT SCROLLING */
   .panel-content {
     flex: 1;
     overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
     padding: 20px;
+    height: 0; /* Critical for mobile scrolling */
+    overscroll-behavior: contain;
+  }
+
+  .settings-content {
+    flex: 1;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    padding: 20px;
+    height: 0; /* Critical for mobile scrolling */
+    overscroll-behavior: contain;
+  }
+
+  /* Enhanced scrolling for iOS */
+  @supports (-webkit-overflow-scrolling: touch) {
+    .panel-content,
+    .settings-content {
+      transform: translateZ(0); /* Force hardware acceleration */
+    }
+  }
+
+  /* HISTORY STYLES */
+  .history-section h4 {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-light);
+    margin-bottom: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .history-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+    border-radius: 12px;
+    margin-bottom: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .history-item:hover {
+    background: var(--bg);
+  }
+
+  .history-icon {
+    width: 36px;
+    height: 36px;
+    background: var(--primary);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 18px;
+  }
+
+  .history-info h5 {
+    font-size: 15px;
+    font-weight: 500;
+    margin-bottom: 2px;
+  }
+
+  .history-info p {
+    font-size: 12px;
+    color: var(--text-light);
+  }
+
+  .panel-footer {
+    padding: 20px;
+    border-top: 1px solid var(--border);
+    flex-shrink: 0; /* Prevent footer from shrinking */
+  }
+
+  .profile-card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px;
+    background: var(--bg);
+    border-radius: 16px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .profile-card:hover {
+    background: var(--primary);
+    color: white;
+  }
+
+  .profile-avatar-small {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--primary);
+  }
+
+  .profile-info h4 {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 2px;
+  }
+
+  .profile-info p {
+    font-size: 13px;
+    color: var(--text-light);
   }
 
   /* SETTINGS STYLES */
@@ -253,7 +369,7 @@
     left: 22px;
   }
 
-  /* LANGUAGE MODAL */
+  /* MODAL STYLES */
   .modal {
     position: fixed;
     top: 0;
@@ -274,6 +390,8 @@
     max-width: 400px;
     max-height: 70vh;
     overflow: hidden;
+    display: flex;
+    flex-direction: column;
   }
 
   .modal-header {
@@ -282,14 +400,16 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-shrink: 0;
   }
 
   .modal-body {
-    max-height: 400px;
+    flex: 1;
     overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
   }
 
-  .language-item {
+  .language-item, .appearance-item {
     display: flex;
     align-items: center;
     padding: 16px 20px;
@@ -297,32 +417,17 @@
     transition: background 0.2s ease;
   }
 
-  .language-item:hover {
+  .language-item:hover, .appearance-item:hover {
     background: var(--bg);
   }
 
-  .language-item.selected {
+  .language-item.selected, .appearance-item.selected {
     background: var(--primary);
     color: white;
   }
 
-  /* APPEARANCE MODAL */
   .appearance-item {
-    display: flex;
-    align-items: center;
     gap: 16px;
-    padding: 16px 20px;
-    cursor: pointer;
-    transition: background 0.2s ease;
-  }
-
-  .appearance-item:hover {
-    background: var(--bg);
-  }
-
-  .appearance-item.selected {
-    background: var(--primary);
-    color: white;
   }
 
   .appearance-icon {
@@ -777,6 +882,25 @@
     main {
       padding: 0 16px 100px;
     }
+    
+    .categories {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .time-row {
+      grid-template-columns: 1fr;
+    }
+    
+    .availability-grid {
+      grid-template-columns: 1fr;
+    }
+
+    /* Enhanced mobile scrolling */
+    .panel-content,
+    .settings-content {
+      overscroll-behavior: contain;
+      transform: translateZ(0);
+    }
   }
   </style>
 
@@ -807,7 +931,7 @@
           <span>🇮🇳 తెలుగు (Telugu)</span>
         </div>
         <div class="language-item" onclick="selectLanguage('ta', 'தமிழ்')">
-          <span>🇮🇳 தமிழ் (Tamil)</span>
+          <span>🇮🇳 தमिழ் (Tamil)</span>
         </div>
         <div class="language-item" onclick="selectLanguage('kn', 'ಕನ್ನಡ')">
           <span>🇮🇳 ಕನ್ನಡ (Kannada)</span>
@@ -886,9 +1010,19 @@
         </div>
       </div>
     </div>
+    
+    <div class="panel-footer">
+      <div class="profile-card" onclick="navigateTo('profile')">
+        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 48 48'%3E%3Ccircle cx='24' cy='24' r='24' fill='%23e9ecef'/%3E%3Cpath d='M24 12c3.3 0 6 2.7 6 6s-2.7 6-6 6-6-2.7-6-6 2.7-6 6-6zm0 18c5 0 9 3 9 6H15c0-3 4-6 9-6z' fill='%23636e72'/%3E%3C/svg%3E" class="profile-avatar-small" alt="Profile">
+        <div class="profile-info">
+          <h4 id="profileName">Setup Profile</h4>
+          <p id="profileEmail">Add your information</p>
+        </div>
+      </div>
+    </div>
   </div>
 
-  <!-- SETTINGS PANEL -->
+  <!-- SETTINGS PANEL - FIXED SCROLLING -->
   <div class="settings-panel" id="settingsPanel">
     <div class="panel-header">
       <h3>Settings</h3>
@@ -1130,6 +1264,7 @@
       document.getElementById('hamburgerPanel').classList.add('open');
       document.getElementById('overlay').classList.add('active');
       loadSearchHistory();
+      updateProfileInfo();
     }
 
     function closeHamburgerPanel() {
@@ -1237,6 +1372,18 @@
       const inputEvent = new Event('input', { bubbles: true });
       document.getElementById('search').dispatchEvent(inputEvent);
       closeHamburgerPanel();
+    }
+
+    function updateProfileInfo() {
+      const savedProfile = localStorage.getItem('gharseUserProfile');
+      const nameElement = document.getElementById('profileName');
+      const emailElement = document.getElementById('profileEmail');
+      
+      if (savedProfile) {
+        const profile = JSON.parse(savedProfile);
+        nameElement.textContent = profile.fullName || 'User';
+        emailElement.textContent = profile.email || profile.phoneNumber || 'View Profile';
+      }
     }
 
     function updateSettingsProfile() {
@@ -1687,5 +1834,6 @@
   </script>
 </body>
 </html>
+
 
 
