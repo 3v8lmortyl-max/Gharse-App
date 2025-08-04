@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -38,7 +37,7 @@
     line-height: 1.5;
   }
 
-  /* HEADER - Logo 200px */
+  /* HEADER - 200px Logo */
   header {
     display: flex;
     justify-content: center;
@@ -57,16 +56,21 @@
     margin: 0;
     display: block;
   }
-    
-  /* SEARCH BAR */
+
+  /* SEARCH BAR WITH MICROPHONE */
   .search-container {
     padding: 16px 20px 8px;
     background: var(--surface);
   }
 
+  .search-input-wrapper {
+    position: relative;
+    width: 100%;
+  }
+
   #search {
     width: 100%;
-    padding: 14px 20px;
+    padding: 14px 50px 14px 20px;
     border: 1px solid var(--border);
     border-radius: 25px;
     font-size: 15px;
@@ -79,6 +83,51 @@
     border-color: var(--primary);
     background: var(--surface);
     box-shadow: 0 0 0 3px rgba(0, 184, 148, 0.1);
+  }
+
+  .mic-button {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 36px;
+    height: 36px;
+    border: none;
+    background: var(--primary);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 8px rgba(0, 184, 148, 0.2);
+  }
+
+  .mic-button:hover {
+    background: #019875;
+    transform: translateY(-50%) scale(1.1);
+  }
+
+  .mic-button.listening {
+    background: #e74c3c;
+    animation: pulse 1.5s infinite;
+  }
+
+  .mic-button.processing {
+    background: #f39c12;
+    animation: spin 1s linear infinite;
+  }
+
+  @keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(231, 76, 60, 0.7); }
+    70% { box-shadow: 0 0 0 10px rgba(231, 76, 60, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(231, 76, 60, 0); }
+  }
+
+  @keyframes spin {
+    0% { transform: translateY(-50%) rotate(0deg); }
+    100% { transform: translateY(-50%) rotate(360deg); }
   }
 
   /* MAIN CONTENT */
@@ -279,7 +328,6 @@
     padding: 20px;
   }
 
-  /* Profile Avatar Styles - Option 1 */
   .profile-photo-section {
     text-align: center;
     margin-bottom: 30px;
@@ -487,6 +535,15 @@
 
   /* RESPONSIVE */
   @media (max-width: 480px) {
+    .mic-button {
+      width: 32px;
+      height: 32px;
+    }
+    
+    #search {
+      padding: 12px 45px 12px 16px;
+    }
+
     .categories {
       grid-template-columns: repeat(2, 1fr);
     }
@@ -514,14 +571,19 @@
 </head>
 
 <body>
-  <!-- HEADER - Logo Only -->
+  <!-- HEADER - 200px Logo -->
   <header>
     <img src="file_000000001c2861f6a38f275dee1d65fb.png" alt="GharSe" class="logo">
   </header>
 
-  <!-- SEARCH -->
+  <!-- SEARCH WITH MICROPHONE -->
   <div class="search-container">
-    <input id="search" placeholder="Search services, rentals…" />
+    <div class="search-input-wrapper">
+      <input id="search" placeholder="Search services, rentals…" />
+      <button id="micButton" class="mic-button" title="Voice Search">
+        <span class="material-icons-round">mic</span>
+      </button>
+    </div>
   </div>
 
   <!-- MAIN CONTENT -->
@@ -642,10 +704,13 @@
     function renderProfile() {
       document.getElementById('app').innerHTML = `
         <div class="profile-container">
-          <!-- Profile Photo Section with Option 1 Default Avatar -->
+          <!-- Profile Photo Section with Default Avatar -->
           <div class="profile-photo-section">
             <div class="profile-avatar-container">
-              <img id="profilePreview" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Ccircle cx='60' cy='60' r='60' fill='%23e9ecef'/%3E%3Cpath d='M60 30c8.3 0 15 6.7 15 15s-6.7 15-15 15-15-6.7-15-15 6.7-15 15-15zm0 45c12.5 0 22.5 7.5 22.5 15H37.5c0-7.5 10-15 22.5-15z' fill='%23636e72'/%3E%3C/svg%3E" alt="Profile Photo" class="profile-avatar">
+              <img id="profilePreview" 
+                   src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Ccircle cx='60' cy='60' r='60' fill='%23e9ecef'/%3E%3Cpath d='M60 30c8.3 0 15 6.7 15 15s-6.7 15-15 15-15-6.7-15-15 6.7-15 15-15zm0 45c12.5 0 22.5 7.5 22.5 15H37.5c0-7.5 10-15 22.5-15z' fill='%23636e72'/%3E%3C/svg%3E" 
+                   alt="Profile Photo" 
+                   class="profile-avatar">
               
               <label for="profilePhotoInput" class="camera-overlay">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="white">
@@ -781,14 +846,13 @@
 
     // Profile Form Functionality
     function initProfileForm() {
-      // Profile photo preview with better default handling
+      // Profile photo preview
       document.getElementById('profilePhotoInput').addEventListener('change', function(e) {
         const file = e.target.files[0];
         if (file) {
           const reader = new FileReader();
           reader.onload = function(e) {
             document.getElementById('profilePreview').src = e.target.result;
-            // Update the text below
             document.querySelector('.profile-photo-section h3').textContent = 'Profile Photo';
             document.querySelector('.profile-photo-section p').textContent = 'Tap to change photo';
           };
@@ -821,7 +885,6 @@
       document.getElementById('profileForm').addEventListener('submit', function(e) {
         e.preventDefault();
         
-        // Collect all form data
         const profileData = {
           fullName: document.getElementById('fullName').value,
           phoneNumber: document.getElementById('phoneNumber').value,
@@ -836,24 +899,19 @@
           availability: Array.from(document.querySelectorAll('input[type="checkbox"]:checked')).map(cb => cb.value)
         };
 
-        // Save to localStorage
         localStorage.setItem('gharseUserProfile', JSON.stringify(profileData));
-        
-        // Show success message
         alert('🎉 Profile saved successfully!\n\nYour information is now available for customers to see.');
         
-        // Optional: Navigate back to home after saving
         setTimeout(() => {
           navigateTo('home');
         }, 1000);
       });
 
-      // Load existing profile data if available
+      // Load existing profile data
       const savedProfile = localStorage.getItem('gharseUserProfile');
       if (savedProfile) {
         const data = JSON.parse(savedProfile);
         
-        // Fill form fields with saved data
         Object.keys(data).forEach(key => {
           if (key !== 'availability') {
             const element = document.getElementById(key);
@@ -861,7 +919,6 @@
           }
         });
 
-        // Check saved availability days
         if (data.availability) {
           data.availability.forEach(day => {
             const checkbox = document.querySelector(`input[value="${day}"]`);
@@ -869,6 +926,85 @@
           });
         }
       }
+    }
+
+    // Voice Search Functionality
+    function initVoiceSearch() {
+      const micButton = document.getElementById('micButton');
+      const searchInput = document.getElementById('search');
+      
+      // Check if browser supports speech recognition
+      if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
+        micButton.style.display = 'none';
+        return;
+      }
+
+      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+      const recognition = new SpeechRecognition();
+      
+      recognition.continuous = false;
+      recognition.interimResults = false;
+      recognition.lang = 'en-US';
+
+      let isListening = false;
+
+      micButton.addEventListener('click', () => {
+        if (isListening) {
+          recognition.stop();
+          return;
+        }
+
+        micButton.classList.add('listening');
+        recognition.start();
+        isListening = true;
+      });
+
+      recognition.onstart = () => {
+        micButton.classList.add('listening');
+        searchInput.placeholder = 'Listening... Speak now';
+      };
+
+      recognition.onresult = (event) => {
+        const transcript = event.results[0][0].transcript;
+        searchInput.value = transcript;
+        
+        const inputEvent = new Event('input', { bubbles: true });
+        searchInput.dispatchEvent(inputEvent);
+        
+        micButton.classList.remove('listening');
+        micButton.classList.add('processing');
+        
+        setTimeout(() => {
+          micButton.classList.remove('processing');
+        }, 1000);
+      };
+
+      recognition.onerror = (event) => {
+        let errorMessage = 'Voice search failed. Please try again.';
+        
+        switch(event.error) {
+          case 'no-speech':
+            errorMessage = 'No speech detected. Please try again.';
+            break;
+          case 'audio-capture':
+            errorMessage = 'Microphone not accessible. Please check permissions.';
+            break;
+          case 'not-allowed':
+            errorMessage = 'Microphone permission denied. Please enable in browser settings.';
+            break;
+        }
+        
+        alert(errorMessage);
+        micButton.classList.remove('listening');
+        searchInput.placeholder = 'Search services, rentals…';
+        isListening = false;
+      };
+
+      recognition.onend = () => {
+        micButton.classList.remove('listening');
+        searchInput.placeholder = 'Search services, rentals…';
+        isListening = false;
+      };
     }
 
     // Service Card Template
@@ -935,8 +1071,9 @@
       }
     });
 
-    // Initialize
+    // Initialize Everything
     window.addEventListener('load', () => {
+      initVoiceSearch();
       renderCurrentRoute();
       loadServices();
     });
@@ -945,3 +1082,4 @@
   </script>
 </body>
 </html>
+
