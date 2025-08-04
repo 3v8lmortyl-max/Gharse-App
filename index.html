@@ -51,9 +51,9 @@
   }
 
   .logo {
-  height: 200px !important;
-  width: auto !important;
-  margin: 2px 0;
+    height: 64px !important;
+    width: auto !important;
+    margin: 2px 0;
   }
     
   /* SEARCH BAR */
@@ -122,6 +122,7 @@
     transition: all 0.2s ease;
     text-decoration: none;
     color: var(--text);
+    cursor: pointer;
   }
 
   .category-card:hover {
@@ -269,6 +270,198 @@
     font-weight: 500;
   }
 
+  /* PROFILE STYLES */
+  .profile-container {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+
+  .profile-photo-section {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+
+  .photo-upload {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 12px;
+  }
+
+  .photo-upload img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid var(--primary);
+  }
+
+  .photo-btn {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    background: var(--primary);
+    color: white;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  }
+
+  .photo-btn:hover {
+    background: #019875;
+  }
+
+  .form-section {
+    background: var(--surface);
+    border-radius: var(--radius);
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: var(--shadow);
+  }
+
+  .form-section h4 {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 16px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid var(--bg);
+  }
+
+  .form-group {
+    margin-bottom: 16px;
+  }
+
+  .form-group label {
+    display: block;
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 6px;
+    font-size: 14px;
+  }
+
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid var(--border);
+    border-radius: 12px;
+    font-size: 15px;
+    transition: all 0.2s ease;
+    font-family: inherit;
+  }
+
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(0, 184, 148, 0.1);
+  }
+
+  .form-group small {
+    display: block;
+    color: var(--text-light);
+    font-size: 12px;
+    margin-top: 4px;
+  }
+
+  .availability-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+
+  .availability-grid label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px;
+    background: var(--bg);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-weight: normal !important;
+    margin-bottom: 0 !important;
+  }
+
+  .availability-grid label:hover {
+    background: #e8f5f3;
+  }
+
+  .availability-grid input[type="checkbox"] {
+    width: auto;
+    margin: 0;
+  }
+
+  .time-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  .photo-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+    gap: 12px;
+    margin-top: 12px;
+  }
+
+  .photo-item {
+    position: relative;
+    aspect-ratio: 1;
+    border-radius: 8px;
+    overflow: hidden;
+    background: var(--bg);
+  }
+
+  .photo-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .photo-remove {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    background: rgba(0,0,0,0.7);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    font-size: 12px;
+  }
+
+  .save-button {
+    width: 100%;
+    background: var(--primary);
+    color: white;
+    border: none;
+    border-radius: var(--radius);
+    padding: 16px 24px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    margin-top: 20px;
+  }
+
+  .save-button:hover {
+    background: #019875;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0, 184, 148, 0.3);
+  }
+
   /* RESPONSIVE */
   @media (max-width: 480px) {
     .categories {
@@ -283,217 +476,15 @@
       left: 16px;
       right: 16px;
     }
-  }
-    /* Profile Container */
-.profile-container {
-  max-width: 500px;
-  margin: 0 auto;
-  padding: 20px;
-}
 
-/* Profile Photo Section */
-.profile-photo-section {
-  text-align: center;
-  margin-bottom: 30px;
-}
-
-.photo-upload {
-  position: relative;
-  display: inline-block;
-  margin-bottom: 12px;
-}
-
-.photo-upload img {
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 3px solid var(--primary);
-}
-
-.photo-btn {
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  background: var(--primary);
-  color: white;
-  border-radius: 50%;
-  width: 30px;
-  height: 30px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-}
-
-.photo-btn:hover {
-  background: #019875;
-}
-
-/* Form Sections */
-.form-section {
-  background: var(--surface);
-  border-radius: var(--radius);
-  padding: 20px;
-  margin-bottom: 20px;
-  box-shadow: var(--shadow);
-}
-
-.form-section h4 {
-  font-size: 16px;
-  font-weight: 600;
-  color: var(--text);
-  margin-bottom: 16px;
-  padding-bottom: 8px;
-  border-bottom: 2px solid var(--bg);
-}
-
-/* Form Groups */
-.form-group {
-  margin-bottom: 16px;
-}
-
-.form-group label {
-  display: block;
-  font-weight: 500;
-  color: var(--text);
-  margin-bottom: 6px;
-  font-size: 14px;
-}
-
-.form-group input,
-.form-group select,
-.form-group textarea {
-  width: 100%;
-  padding: 12px 16px;
-  border: 2px solid var(--border);
-  border-radius: 12px;
-  font-size: 15px;
-  transition: all 0.2s ease;
-  font-family: inherit;
-}
-
-.form-group input:focus,
-.form-group select:focus,
-.form-group textarea:focus {
-  outline: none;
-  border-color: var(--primary);
-  box-shadow: 0 0 0 3px rgba(0, 184, 148, 0.1);
-}
-
-.form-group small {
-  display: block;
-  color: var(--text-light);
-  font-size: 12px;
-  margin-top: 4px;
-}
-
-/* Availability Grid */
-.availability-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 12px;
-  margin-bottom: 16px;
-}
-
-.availability-grid label {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 10px;
-  background: var(--bg);
-  border-radius: 8px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  font-weight: normal !important;
-  margin-bottom: 0 !important;
-}
-
-.availability-grid label:hover {
-  background: #e8f5f3;
-}
-
-.availability-grid input[type="checkbox"] {
-  width: auto;
-  margin: 0;
-}
-
-/* Time Row */
-.time-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
-}
-
-/* Photo Grid */
-.photo-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
-  gap: 12px;
-  margin-top: 12px;
-}
-
-.photo-item {
-  position: relative;
-  aspect-ratio: 1;
-  border-radius: 8px;
-  overflow: hidden;
-  background: var(--bg);
-}
-
-.photo-item img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.photo-remove {
-  position: absolute;
-  top: 4px;
-  right: 4px;
-  background: rgba(0,0,0,0.7);
-  color: white;
-  border: none;
-  border-radius: 50%;
-  width: 20px;
-  height: 20px;
-  cursor: pointer;
-  font-size: 12px;
-}
-
-/* Save Button */
-.save-button {
-  width: 100%;
-  background: var(--primary);
-  color: white;
-  border: none;
-  border-radius: var(--radius);
-  padding: 16px 24px;
-  font-size: 16px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  margin-top: 20px;
-}
-
-.save-button:hover {
-  background: #019875;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 15px rgba(0, 184, 148, 0.3);
-}
-
-/* Mobile Responsive */
-@media (max-width: 480px) {
-  .time-row {
-    grid-template-columns: 1fr;
-  }
-  
-  .availability-grid {
-    grid-template-columns: 1fr;
-  }
-}
+    .time-row {
+      grid-template-columns: 1fr;
+    }
     
+    .availability-grid {
+      grid-template-columns: 1fr;
+    }
+  }
   </style>
 
   <link rel="icon" href="file_000000001c2861f6a38f275dee1d65fb.png" type="image/png" />
@@ -626,140 +617,228 @@
     }
 
     function renderProfile() {
-  document.getElementById('app').innerHTML = `
-    <div class="profile-container">
-      <!-- Profile Photo Section -->
-      <div class="profile-photo-section">
-        <div class="photo-upload">
-          <img id="profilePreview" src="https://via.placeholder.com/100x100/00b894/white?text=📷" alt="Profile Photo">
-          <label for="profilePhoto" class="photo-btn">
-            <span class="material-icons-round">camera_alt</span>
-          </label>
-          <input type="file" id="profilePhoto" accept="image/*" hidden>
-        </div>
-        <h3>Upload Your Photo</h3>
-      </div>
-
-      <!-- Profile Form -->
-      <form id="profileForm" class="profile-form">
-        
-        <!-- Personal Info -->
-        <div class="form-section">
-          <h4>📋 Personal Information</h4>
-          
-          <div class="form-group">
-            <label for="fullName">Full Name *</label>
-            <input type="text" id="fullName" placeholder="Enter your full name" required>
-          </div>
-
-          <div class="form-group">
-            <label for="phoneNumber">Phone Number *</label>
-            <input type="tel" id="phoneNumber" placeholder="Enter your phone number" required>
-          </div>
-
-          <div class="form-group">
-            <label for="email">Email Address</label>
-            <input type="email" id="email" placeholder="Enter your email address">
-          </div>
-
-          <div class="form-group">
-            <label for="location">Location</label>
-            <input type="text" id="location" placeholder="City, Area">
-          </div>
-        </div>
-
-        <!-- Service Info -->
-        <div class="form-section">
-          <h4>🛠️ Service Details</h4>
-          
-          <div class="form-group">
-            <label for="serviceType">What service do you provide?</label>
-            <select id="serviceType">
-              <option value="">Select your service</option>
-              <option value="plumbing">Plumbing</option>
-              <option value="electrical">Electrical Work</option>
-              <option value="tutoring">Tutoring/Teaching</option>
-              <option value="cleaning">House Cleaning</option>
-              <option value="repairs">Home Repairs</option>
-              <option value="beauty">Beauty Services</option>
-              <option value="cooking">Cooking/Catering</option>
-              <option value="other">Other</option>
-            </select>
-          </div>
-
-          <div class="form-group">
-            <label for="experience">Experience</label>
-            <select id="experience">
-              <option value="">Select experience</option>
-              <option value="0-1">New (0-1 years)</option>
-              <option value="1-3">1-3 years</option>
-              <option value="3-5">3-5 years</option>
-              <option value="5-10">5-10 years</option>
-              <option value="10+">Expert (10+ years)</option>
-            </select>
-          </div>
-
-          <div class="form-group">
-            <label for="rate">Your Rate (₹ per hour)</label>
-            <input type="number" id="rate" placeholder="e.g., 200">
-          </div>
-        </div>
-
-        <!-- About Section -->
-        <div class="form-section">
-          <h4>📝 About Your Service</h4>
-          
-          <div class="form-group">
-            <label for="description">Tell people about your service</label>
-            <textarea id="description" placeholder="Describe your service, experience, and what makes you special..." rows="4"></textarea>
-          </div>
-
-          <div class="form-group">
-            <label for="workPhotos">Upload Work Photos</label>
-            <input type="file" id="workPhotos" accept="image/*" multiple>
-            <small>Show examples of your work (up to 5 photos)</small>
-          </div>
-
-          <div id="photoPreview" class="photo-grid"></div>
-        </div>
-
-        <!-- Availability -->
-        <div class="form-section">
-          <h4>⏰ When are you available?</h4>
-          
-          <div class="availability-grid">
-            <label><input type="checkbox" value="monday"> Monday</label>
-            <label><input type="checkbox" value="tuesday"> Tuesday</label>
-            <label><input type="checkbox" value="wednesday"> Wednesday</label>
-            <label><input type="checkbox" value="thursday"> Thursday</label>
-            <label><input type="checkbox" value="friday"> Friday</label>
-            <label><input type="checkbox" value="saturday"> Saturday</label>
-            <label><input type="checkbox" value="sunday"> Sunday</label>
-          </div>
-
-          <div class="time-row">
-            <div class="form-group">
-              <label for="startTime">From</label>
-              <input type="time" id="startTime">
+      document.getElementById('app').innerHTML = `
+        <div class="profile-container">
+          <!-- Profile Photo Section -->
+          <div class="profile-photo-section">
+            <div class="photo-upload">
+              <img id="profilePreview" src="https://via.placeholder.com/100x100/00b894/white?text=📷" alt="Profile Photo">
+              <label for="profilePhoto" class="photo-btn">
+                <span class="material-icons-round">camera_alt</span>
+              </label>
+              <input type="file" id="profilePhoto" accept="image/*" hidden>
             </div>
-            <div class="form-group">
-              <label for="endTime">To</label>
-              <input type="time" id="endTime">
-            </div>
+            <h3>Upload Your Photo</h3>
           </div>
+
+          <!-- Profile Form -->
+          <form id="profileForm" class="profile-form">
+            
+            <!-- Personal Info -->
+            <div class="form-section">
+              <h4>📋 Personal Information</h4>
+              
+              <div class="form-group">
+                <label for="fullName">Full Name *</label>
+                <input type="text" id="fullName" placeholder="Enter your full name" required>
+              </div>
+
+              <div class="form-group">
+                <label for="phoneNumber">Phone Number *</label>
+                <input type="tel" id="phoneNumber" placeholder="Enter your phone number" required>
+              </div>
+
+              <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" placeholder="Enter your email address">
+              </div>
+
+              <div class="form-group">
+                <label for="location">Location</label>
+                <input type="text" id="location" placeholder="City, Area">
+              </div>
+            </div>
+
+            <!-- Service Info -->
+            <div class="form-section">
+              <h4>🛠️ Service Details</h4>
+              
+              <div class="form-group">
+                <label for="serviceType">What service do you provide?</label>
+                <select id="serviceType">
+                  <option value="">Select your service</option>
+                  <option value="plumbing">Plumbing</option>
+                  <option value="electrical">Electrical Work</option>
+                  <option value="tutoring">Tutoring/Teaching</option>
+                  <option value="cleaning">House Cleaning</option>
+                  <option value="repairs">Home Repairs</option>
+                  <option value="beauty">Beauty Services</option>
+                  <option value="cooking">Cooking/Catering</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="experience">Experience</label>
+                <select id="experience">
+                  <option value="">Select experience</option>
+                  <option value="0-1">New (0-1 years)</option>
+                  <option value="1-3">1-3 years</option>
+                  <option value="3-5">3-5 years</option>
+                  <option value="5-10">5-10 years</option>
+                  <option value="10+">Expert (10+ years)</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="rate">Your Rate (₹ per hour)</label>
+                <input type="number" id="rate" placeholder="e.g., 200">
+              </div>
+            </div>
+
+            <!-- About Section -->
+            <div class="form-section">
+              <h4>📝 About Your Service</h4>
+              
+              <div class="form-group">
+                <label for="description">Tell people about your service</label>
+                <textarea id="description" placeholder="Describe your service, experience, and what makes you special..." rows="4"></textarea>
+              </div>
+
+              <div class="form-group">
+                <label for="workPhotos">Upload Work Photos</label>
+                <input type="file" id="workPhotos" accept="image/*" multiple>
+                <small>Show examples of your work (up to 5 photos)</small>
+              </div>
+
+              <div id="photoPreview" class="photo-grid"></div>
+            </div>
+
+            <!-- Availability -->
+            <div class="form-section">
+              <h4>⏰ When are you available?</h4>
+              
+              <div class="availability-grid">
+                <label><input type="checkbox" value="monday"> Monday</label>
+                <label><input type="checkbox" value="tuesday"> Tuesday</label>
+                <label><input type="checkbox" value="wednesday"> Wednesday</label>
+                <label><input type="checkbox" value="thursday"> Thursday</label>
+                <label><input type="checkbox" value="friday"> Friday</label>
+                <label><input type="checkbox" value="saturday"> Saturday</label>
+                <label><input type="checkbox" value="sunday"> Sunday</label>
+              </div>
+
+              <div class="time-row">
+                <div class="form-group">
+                  <label for="startTime">From</label>
+                  <input type="time" id="startTime">
+                </div>
+                <div class="form-group">
+                  <label for="endTime">To</label>
+                  <input type="time" id="endTime">
+                </div>
+              </div>
+            </div>
+
+            <button type="submit" class="save-button">
+              💾 Save My Profile
+            </button>
+          </form>
         </div>
+      `;
 
-        <button type="submit" class="save-button">
-          💾 Save My Profile
-        </button>
-      </form>
-    </div>
-  `;
-
-  // Initialize the form
-  initProfileForm();
+      // Initialize the form
+      initProfileForm();
     }
-    
+
+    // Profile Form Functionality
+    function initProfileForm() {
+      // Profile photo preview
+      document.getElementById('profilePhoto').addEventListener('change', function(e) {
+        const file = e.target.files[0];
+        if (file) {
+          const reader = new FileReader();
+          reader.onload = function(e) {
+            document.getElementById('profilePreview').src = e.target.result;
+          };
+          reader.readAsDataURL(file);
+        }
+      });
+
+      // Work photos preview
+      document.getElementById('workPhotos').addEventListener('change', function(e) {
+        const files = Array.from(e.target.files);
+        const photoGrid = document.getElementById('photoPreview');
+        photoGrid.innerHTML = '';
+
+        files.slice(0, 5).forEach((file, index) => {
+          const reader = new FileReader();
+          reader.onload = function(e) {
+            const photoDiv = document.createElement('div');
+            photoDiv.className = 'photo-item';
+            photoDiv.innerHTML = `
+              <img src="${e.target.result}" alt="Work photo">
+              <button type="button" class="photo-remove" onclick="this.parentElement.remove()">×</button>
+            `;
+            photoGrid.appendChild(photoDiv);
+          };
+          reader.readAsDataURL(file);
+        });
+      });
+
+      // Form submission
+      document.getElementById('profileForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // Collect all form data
+        const profileData = {
+          fullName: document.getElementById('fullName').value,
+          phoneNumber: document.getElementById('phoneNumber').value,
+          email: document.getElementById('email').value,
+          location: document.getElementById('location').value,
+          serviceType: document.getElementById('serviceType').value,
+          experience: document.getElementById('experience').value,
+          rate: document.getElementById('rate').value,
+          description: document.getElementById('description').value,
+          startTime: document.getElementById('startTime').value,
+          endTime: document.getElementById('endTime').value,
+          availability: Array.from(document.querySelectorAll('input[type="checkbox"]:checked')).map(cb => cb.value)
+        };
+
+        // Save to localStorage
+        localStorage.setItem('gharseUserProfile', JSON.stringify(profileData));
+        
+        // Show success message
+        alert('🎉 Profile saved successfully!\n\nYour information is now available for customers to see.');
+        
+        // Optional: Navigate back to home after saving
+        setTimeout(() => {
+          navigateTo('home');
+        }, 1000);
+      });
+
+      // Load existing profile data if available
+      const savedProfile = localStorage.getItem('gharseUserProfile');
+      if (savedProfile) {
+        const data = JSON.parse(savedProfile);
+        
+        // Fill form fields with saved data
+        Object.keys(data).forEach(key => {
+          if (key !== 'availability') {
+            const element = document.getElementById(key);
+            if (element) element.value = data[key];
+          }
+        });
+
+        // Check saved availability days
+        if (data.availability) {
+          data.availability.forEach(day => {
+            const checkbox = document.querySelector(`input[value="${day}"]`);
+            if (checkbox) checkbox.checked = true;
+          });
+        }
+      }
+    }
 
     // Service Card Template
     function createServiceCard(service) {
@@ -833,88 +912,6 @@
 
     window.addEventListener('hashchange', renderCurrentRoute);
   </script>
-  function initProfileForm() {
-  // Profile photo preview
-  document.getElementById('profilePhoto').addEventListener('change', function(e) {
-    const file = e.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = function(e) {
-        document.getElementById('profilePreview').src = e.target.result;
-      };
-      reader.readAsDataURL(file);
-    }
-  });
-
-  // Work photos preview
-  document.getElementById('workPhotos').addEventListener('change', function(e) {
-    const files = Array.from(e.target.files);
-    const photoGrid = document.getElementById('photoPreview');
-    photoGrid.innerHTML = '';
-
-    files.slice(0, 5).forEach((file, index) => {
-      const reader = new FileReader();
-      reader.onload = function(e) {
-        const photoDiv = document.createElement('div');
-        photoDiv.className = 'photo-item';
-        photoDiv.innerHTML = `
-          <img src="${e.target.result}" alt="Work photo">
-          <button type="button" class="photo-remove" onclick="this.parentElement.remove()">×</button>
-        `;
-        photoGrid.appendChild(photoDiv);
-      };
-      reader.readAsDataURL(file);
-    });
-  });
-
-  // Form submission
-  document.getElementById('profileForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    
-    // Collect all form data
-    const profileData = {
-      fullName: document.getElementById('fullName').value,
-      phoneNumber: document.getElementById('phoneNumber').value,
-      email: document.getElementById('email').value,
-      location: document.getElementById('location').value,
-      serviceType: document.getElementById('serviceType').value,
-      experience: document.getElementById('experience').value,
-      rate: document.getElementById('rate').value,
-      description: document.getElementById('description').value,
-      startTime: document.getElementById('startTime').value,
-      endTime: document.getElementById('endTime').value,
-      availability: Array.from(document.querySelectorAll('input[type="checkbox"]:checked')).map(cb => cb.value)
-    };
-
-    // Save to localStorage
-    localStorage.setItem('gharseUserProfile', JSON.stringify(profileData));
-    
-    // Show success message
-    alert('🎉 Profile saved successfully! Your information is now public for customers to see.');
-  });
-
-  // Load existing data if available
-  const savedProfile = localStorage.getItem('gharseUserProfile');
-  if (savedProfile) {
-    const data = JSON.parse(savedProfile);
-    
-    // Fill form fields
-    Object.keys(data).forEach(key => {
-      if (key !== 'availability') {
-        const element = document.getElementById(key);
-        if (element) element.value = data[key];
-      }
-    });
-
-    // Check availability boxes
-    if (data.availability) {
-      data.availability.forEach(day => {
-        const checkbox = document.querySelector(`input[value="${day}"]`);
-        if (checkbox) checkbox.checked = true;
-      });
-    }
-  }
-}
-
 </body>
 </html>
+
