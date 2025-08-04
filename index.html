@@ -37,25 +37,26 @@
     line-height: 1.5;
   }
 
-  /* HEADER - Logo Only */
-  header {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-    background: var(--surface);
-    border-bottom: 1px solid var(--border);
-    position: sticky;
-    top: 0;
-    z-index: 100;
-  }
+ /* HEADER - Logo Only */
+header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 24px 20px; /* slightly more padding for bigger logo */
+  background: var(--surface);
+  border-bottom: 1px solid var(--border); /* keeps separator line */
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
 
-  .logo {
-    height: 64px !important;
-    width: auto !important;
-    margin: 2px 0;
-  }
-    
+.logo {
+  height: 200px !important; /* your requested 200px height */
+  width: auto !important;
+  margin: 0; /* clean margins */
+  display: block;
+}
+
   /* SEARCH BAR */
   .search-container {
     padding: 16px 20px 8px;
