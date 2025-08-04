@@ -416,11 +416,140 @@
     }
 
     function renderProfile() {
-      document.getElementById('app').innerHTML = `
-        <h2 style="margin: 20px 0; font-size: 24px;">Your Profile</h2>
-        <p style="text-align: center; color: var(--text-light); margin: 40px 0;">Manage your info, contact details, and uploads</p>
-      `;
+  document.getElementById('app').innerHTML = `
+    <div class="profile-container">
+      <!-- Profile Photo Section -->
+      <div class="profile-photo-section">
+        <div class="photo-upload">
+          <img id="profilePreview" src="https://via.placeholder.com/100x100/00b894/white?text=📷" alt="Profile Photo">
+          <label for="profilePhoto" class="photo-btn">
+            <span class="material-icons-round">camera_alt</span>
+          </label>
+          <input type="file" id="profilePhoto" accept="image/*" hidden>
+        </div>
+        <h3>Upload Your Photo</h3>
+      </div>
+
+      <!-- Profile Form -->
+      <form id="profileForm" class="profile-form">
+        
+        <!-- Personal Info -->
+        <div class="form-section">
+          <h4>📋 Personal Information</h4>
+          
+          <div class="form-group">
+            <label for="fullName">Full Name *</label>
+            <input type="text" id="fullName" placeholder="Enter your full name" required>
+          </div>
+
+          <div class="form-group">
+            <label for="phoneNumber">Phone Number *</label>
+            <input type="tel" id="phoneNumber" placeholder="Enter your phone number" required>
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" placeholder="Enter your email address">
+          </div>
+
+          <div class="form-group">
+            <label for="location">Location</label>
+            <input type="text" id="location" placeholder="City, Area">
+          </div>
+        </div>
+
+        <!-- Service Info -->
+        <div class="form-section">
+          <h4>🛠️ Service Details</h4>
+          
+          <div class="form-group">
+            <label for="serviceType">What service do you provide?</label>
+            <select id="serviceType">
+              <option value="">Select your service</option>
+              <option value="plumbing">Plumbing</option>
+              <option value="electrical">Electrical Work</option>
+              <option value="tutoring">Tutoring/Teaching</option>
+              <option value="cleaning">House Cleaning</option>
+              <option value="repairs">Home Repairs</option>
+              <option value="beauty">Beauty Services</option>
+              <option value="cooking">Cooking/Catering</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="experience">Experience</label>
+            <select id="experience">
+              <option value="">Select experience</option>
+              <option value="0-1">New (0-1 years)</option>
+              <option value="1-3">1-3 years</option>
+              <option value="3-5">3-5 years</option>
+              <option value="5-10">5-10 years</option>
+              <option value="10+">Expert (10+ years)</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="rate">Your Rate (₹ per hour)</label>
+            <input type="number" id="rate" placeholder="e.g., 200">
+          </div>
+        </div>
+
+        <!-- About Section -->
+        <div class="form-section">
+          <h4>📝 About Your Service</h4>
+          
+          <div class="form-group">
+            <label for="description">Tell people about your service</label>
+            <textarea id="description" placeholder="Describe your service, experience, and what makes you special..." rows="4"></textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="workPhotos">Upload Work Photos</label>
+            <input type="file" id="workPhotos" accept="image/*" multiple>
+            <small>Show examples of your work (up to 5 photos)</small>
+          </div>
+
+          <div id="photoPreview" class="photo-grid"></div>
+        </div>
+
+        <!-- Availability -->
+        <div class="form-section">
+          <h4>⏰ When are you available?</h4>
+          
+          <div class="availability-grid">
+            <label><input type="checkbox" value="monday"> Monday</label>
+            <label><input type="checkbox" value="tuesday"> Tuesday</label>
+            <label><input type="checkbox" value="wednesday"> Wednesday</label>
+            <label><input type="checkbox" value="thursday"> Thursday</label>
+            <label><input type="checkbox" value="friday"> Friday</label>
+            <label><input type="checkbox" value="saturday"> Saturday</label>
+            <label><input type="checkbox" value="sunday"> Sunday</label>
+          </div>
+
+          <div class="time-row">
+            <div class="form-group">
+              <label for="startTime">From</label>
+              <input type="time" id="startTime">
+            </div>
+            <div class="form-group">
+              <label for="endTime">To</label>
+              <input type="time" id="endTime">
+            </div>
+          </div>
+        </div>
+
+        <button type="submit" class="save-button">
+          💾 Save My Profile
+        </button>
+      </form>
+    </div>
+  `;
+
+  // Initialize the form
+  initProfileForm();
     }
+    
 
     // Service Card Template
     function createServiceCard(service) {
