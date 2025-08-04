@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -329,7 +328,7 @@
     color: var(--text-light);
   }
 
-  /* SIMPLIFIED SETTINGS STYLES */
+  /* SETTINGS STYLES */
   .settings-section {
     margin-bottom: 32px;
   }
@@ -419,7 +418,7 @@
     left: 22px;
   }
 
-  /* CONTACT MODAL */
+  /* MODAL STYLES */
   .modal {
     position: fixed;
     top: 0;
@@ -457,7 +456,41 @@
     flex: 1;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
-    padding: 20px;
+  }
+
+  .language-item, .appearance-item {
+    display: flex;
+    align-items: center;
+    padding: 16px 20px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+  }
+
+  .language-item:hover, .appearance-item:hover {
+    background: var(--bg);
+  }
+
+  .language-item.selected, .appearance-item.selected {
+    background: var(--primary);
+    color: white;
+  }
+
+  .appearance-item {
+    gap: 16px;
+  }
+
+  .appearance-icon {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    background: var(--bg);
+  }
+
+  .appearance-item.selected .appearance-icon {
+    background: rgba(255,255,255,0.2);
   }
 
   .contact-info {
@@ -963,6 +996,88 @@
   <!-- OVERLAY -->
   <div class="overlay" id="overlay"></div>
 
+  <!-- LANGUAGE MODAL -->
+  <div class="modal" id="languageModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Select Language</h3>
+        <button class="close-btn" onclick="closeLanguageModal()">
+          <span class="material-icons-round">close</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="language-item selected" onclick="selectLanguage('en', 'English')">
+          <span>🇺🇸 English</span>
+        </div>
+        <div class="language-item" onclick="selectLanguage('hi', 'हिंदी')">
+          <span>🇮🇳 हिंदी (Hindi)</span>
+        </div>
+        <div class="language-item" onclick="selectLanguage('te', 'తెలుగు')">
+          <span>🇮🇳 తెలుగు (Telugu)</span>
+        </div>
+        <div class="language-item" onclick="selectLanguage('ta', 'தമিழ்')">
+          <span>🇮🇳 தமিழ் (Tamil)</span>
+        </div>
+        <div class="language-item" onclick="selectLanguage('kn', 'ಕನ್ನಡ')">
+          <span>🇮🇳 ಕನ್ನಡ (Kannada)</span>
+        </div>
+        <div class="language-item" onclick="selectLanguage('ml', 'മലയാളം')">
+          <span>🇮🇳 മലയാളം (Malayalam)</span>
+        </div>
+        <div class="language-item" onclick="selectLanguage('bn', 'বাংলা')">
+          <span>🇮🇳 বাংলা (Bengali)</span>
+        </div>
+        <div class="language-item" onclick="selectLanguage('gu', 'ગુજરાતી')">
+          <span>🇮🇳 ગુજરાતી (Gujarati)</span>
+        </div>
+        <div class="language-item" onclick="selectLanguage('mr', 'मराठी')">
+          <span>🇮🇳 मराठी (Marathi)</span>
+        </div>
+        <div class="language-item" onclick="selectLanguage('pa', 'ਪੰਜਾਬੀ')">
+          <span>🇮🇳 ਪੰਜਾਬੀ (Punjabi)</span>
+        </div>
+        <div class="language-item" onclick="selectLanguage('ur', 'اردو')">
+          <span>🇮🇳 اردو (Urdu)</span>
+        </div>
+        <div class="language-item" onclick="selectLanguage('or', 'ଓଡ଼ିଆ')">
+          <span>🇮🇳 ଓଡ଼ିଆ (Odia)</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- APPEARANCE MODAL -->
+  <div class="modal" id="appearanceModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Appearance</h3>
+        <button class="close-btn" onclick="closeAppearanceModal()">
+          <span class="material-icons-round">close</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="appearance-item selected" onclick="selectAppearance('default')">
+          <div class="appearance-icon">
+            <span class="material-icons-round">light_mode</span>
+          </div>
+          <div>
+            <h5>Default</h5>
+            <p>System default theme</p>
+          </div>
+        </div>
+        <div class="appearance-item" onclick="selectAppearance('dark')">
+          <div class="appearance-icon">
+            <span class="material-icons-round">dark_mode</span>
+          </div>
+          <div>
+            <h5>Dark</h5>
+            <p>Dark theme for low light</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- CONTACT MODAL -->
   <div class="modal" id="contactModal">
     <div class="modal-content">
@@ -1052,7 +1167,7 @@
     </div>
   </div>
 
-  <!-- SIMPLIFIED SETTINGS PANEL -->
+  <!-- SETTINGS PANEL WITH LANGUAGE & APPEARANCE RESTORED -->
   <div class="settings-panel" id="settingsPanel">
     <div class="panel-header">
       <h3>Settings</h3>
@@ -1100,27 +1215,27 @@
         </div>
       </div>
 
-      <!-- App Settings -->
+      <!-- App Settings WITH LANGUAGE & APPEARANCE RESTORED -->
       <div class="settings-section">
         <h4>App</h4>
         
-        <div class="settings-item">
+        <div class="settings-item" onclick="openLanguageModal()">
           <div class="settings-left">
             <span class="material-icons-round settings-icon">language</span>
             <div class="settings-text">
               <h5>Language</h5>
-              <p>English</p>
+              <p id="currentLanguage">English</p>
             </div>
           </div>
           <span class="material-icons-round">chevron_right</span>
         </div>
         
-        <div class="settings-item">
+        <div class="settings-item" onclick="openAppearanceModal()">
           <div class="settings-left">
             <span class="material-icons-round settings-icon">palette</span>
             <div class="settings-text">
               <h5>Appearance</h5>
-              <p>Default</p>
+              <p id="currentAppearance">Default</p>
             </div>
           </div>
           <span class="material-icons-round">chevron_right</span>
@@ -1149,7 +1264,7 @@
         </div>
       </div>
 
-      <!-- Only Contact Us -->
+      <!-- About Section with only Contact Us -->
       <div class="settings-section">
         <h4>About</h4>
         
@@ -1267,6 +1382,48 @@
     function closeSettingsPanel() {
       document.getElementById('settingsPanel').classList.remove('open');
       document.getElementById('overlay').classList.remove('active');
+    }
+
+    // Language Modal Functions
+    function openLanguageModal() {
+      document.getElementById('languageModal').style.display = 'flex';
+    }
+
+    function closeLanguageModal() {
+      document.getElementById('languageModal').style.display = 'none';
+    }
+
+    function selectLanguage(code, name) {
+      document.querySelectorAll('.language-item').forEach(item => item.classList.remove('selected'));
+      event.target.closest('.language-item').classList.add('selected');
+      document.getElementById('currentLanguage').textContent = name;
+      localStorage.setItem('selectedLanguage', JSON.stringify({code, name}));
+      closeLanguageModal();
+    }
+
+    // Appearance Modal Functions
+    function openAppearanceModal() {
+      document.getElementById('appearanceModal').style.display = 'flex';
+    }
+
+    function closeAppearanceModal() {
+      document.getElementById('appearanceModal').style.display = 'none';
+    }
+
+    function selectAppearance(theme) {
+      document.querySelectorAll('.appearance-item').forEach(item => item.classList.remove('selected'));
+      event.target.closest('.appearance-item').classList.add('selected');
+      
+      if (theme === 'dark') {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        document.getElementById('currentAppearance').textContent = 'Dark';
+      } else {
+        document.documentElement.removeAttribute('data-theme');
+        document.getElementById('currentAppearance').textContent = 'Default';
+      }
+      
+      localStorage.setItem('selectedTheme', theme);
+      closeAppearanceModal();
     }
 
     // Contact Modal Functions
@@ -1788,6 +1945,19 @@
 
     // Initialize Everything
     window.addEventListener('load', () => {
+      // Load saved preferences
+      const savedTheme = localStorage.getItem('selectedTheme');
+      if (savedTheme === 'dark') {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        document.getElementById('currentAppearance').textContent = 'Dark';
+      }
+      
+      const savedLanguage = localStorage.getItem('selectedLanguage');
+      if (savedLanguage) {
+        const lang = JSON.parse(savedLanguage);
+        document.getElementById('currentLanguage').textContent = lang.name;
+      }
+      
       initVoiceSearch();
       renderCurrentRoute();
     });
@@ -1796,6 +1966,7 @@
   </script>
 </body>
 </html>
+
 
 
 
