@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -23,6 +24,14 @@
     --radius: 20px;
   }
 
+  [data-theme="dark"] {
+    --bg: #1a1a1a;
+    --surface: #2d2d2d;
+    --text: #ffffff;
+    --text-light: #b0b0b0;
+    --border: #404040;
+  }
+
   * {
     margin: 0;
     padding: 0;
@@ -35,6 +44,7 @@
     color: var(--text);
     font-size: 15px;
     line-height: 1.5;
+    transition: background 0.3s ease, color 0.3s ease;
   }
 
   /* HEADER WITH MENU BUTTONS */
@@ -86,23 +96,34 @@
     color: white;
   }
 
-  /* HAMBURGER MENU PANEL */
-  .hamburger-panel {
+  /* PANELS */
+  .hamburger-panel, .settings-panel {
     position: fixed;
     top: 0;
-    left: -320px;
-    width: 320px;
+    width: 350px;
     height: 100vh;
     background: var(--surface);
     z-index: 1000;
-    transition: left 0.3s ease;
+    transition: all 0.3s ease;
     box-shadow: 2px 0 20px rgba(0,0,0,0.1);
     display: flex;
     flex-direction: column;
   }
 
+  .hamburger-panel {
+    left: -350px;
+  }
+
   .hamburger-panel.open {
     left: 0;
+  }
+
+  .settings-panel {
+    right: -350px;
+  }
+
+  .settings-panel.open {
+    right: 0;
   }
 
   .panel-header {
@@ -142,118 +163,7 @@
     padding: 20px;
   }
 
-  .history-section h4 {
-    font-size: 14px;
-    font-weight: 600;
-    color: var(--text-light);
-    margin-bottom: 12px;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-  }
-
-  .history-item {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 12px;
-    border-radius: 12px;
-    margin-bottom: 8px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-  }
-
-  .history-item:hover {
-    background: var(--bg);
-  }
-
-  .history-icon {
-    width: 36px;
-    height: 36px;
-    background: var(--primary);
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    font-size: 18px;
-  }
-
-  .history-info h5 {
-    font-size: 15px;
-    font-weight: 500;
-    margin-bottom: 2px;
-  }
-
-  .history-info p {
-    font-size: 12px;
-    color: var(--text-light);
-  }
-
-  .panel-footer {
-    padding: 20px;
-    border-top: 1px solid var(--border);
-  }
-
-  .profile-card {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 16px;
-    background: var(--bg);
-    border-radius: 16px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-  }
-
-  .profile-card:hover {
-    background: var(--primary);
-    color: white;
-  }
-
-  .profile-avatar-small {
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 2px solid var(--primary);
-  }
-
-  .profile-info h4 {
-    font-size: 16px;
-    font-weight: 600;
-    margin-bottom: 2px;
-  }
-
-  .profile-info p {
-    font-size: 13px;
-    color: var(--text-light);
-  }
-
-  /* SETTINGS PANEL */
-  .settings-panel {
-    position: fixed;
-    top: 0;
-    right: -400px;
-    width: 400px;
-    height: 100vh;
-    background: var(--surface);
-    z-index: 1000;
-    transition: right 0.3s ease;
-    box-shadow: -2px 0 20px rgba(0,0,0,0.1);
-    display: flex;
-    flex-direction: column;
-  }
-
-  .settings-panel.open {
-    right: 0;
-  }
-
-  .settings-content {
-    flex: 1;
-    overflow-y: auto;
-    padding: 20px;
-  }
-
+  /* SETTINGS STYLES */
   .settings-section {
     margin-bottom: 32px;
   }
@@ -343,6 +253,92 @@
     left: 22px;
   }
 
+  /* LANGUAGE MODAL */
+  .modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    z-index: 2000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .modal-content {
+    background: var(--surface);
+    border-radius: var(--radius);
+    width: 90%;
+    max-width: 400px;
+    max-height: 70vh;
+    overflow: hidden;
+  }
+
+  .modal-header {
+    padding: 20px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .modal-body {
+    max-height: 400px;
+    overflow-y: auto;
+  }
+
+  .language-item {
+    display: flex;
+    align-items: center;
+    padding: 16px 20px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+  }
+
+  .language-item:hover {
+    background: var(--bg);
+  }
+
+  .language-item.selected {
+    background: var(--primary);
+    color: white;
+  }
+
+  /* APPEARANCE MODAL */
+  .appearance-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px 20px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+  }
+
+  .appearance-item:hover {
+    background: var(--bg);
+  }
+
+  .appearance-item.selected {
+    background: var(--primary);
+    color: white;
+  }
+
+  .appearance-icon {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    background: var(--bg);
+  }
+
+  .appearance-item.selected .appearance-icon {
+    background: rgba(255,255,255,0.2);
+  }
+
   /* OVERLAY */
   .overlay {
     position: fixed;
@@ -381,6 +377,7 @@
     font-size: 15px;
     background: var(--bg);
     transition: all 0.2s ease;
+    color: var(--text);
   }
 
   #search:focus {
@@ -557,6 +554,18 @@
     transform: scale(1.1);
   }
 
+  .profile-photo-section h3 {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 4px;
+  }
+
+  .profile-photo-section p {
+    font-size: 14px;
+    color: var(--text-light);
+  }
+
   .form-section {
     background: var(--surface);
     border-radius: var(--radius);
@@ -565,17 +574,124 @@
     box-shadow: var(--shadow);
   }
 
+  .form-section h4 {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 16px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid var(--bg);
+  }
+
   .form-group {
     margin-bottom: 16px;
   }
 
-  .form-group input {
+  .form-group label {
+    display: block;
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 6px;
+    font-size: 14px;
+  }
+
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
     width: 100%;
     padding: 12px 16px;
     border: 2px solid var(--border);
     border-radius: 12px;
     font-size: 15px;
     transition: all 0.2s ease;
+    font-family: inherit;
+    background: var(--bg);
+    color: var(--text);
+  }
+
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(0, 184, 148, 0.1);
+  }
+
+  .form-group small {
+    display: block;
+    color: var(--text-light);
+    font-size: 12px;
+    margin-top: 4px;
+  }
+
+  .availability-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+
+  .availability-grid label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px;
+    background: var(--bg);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-weight: normal !important;
+    margin-bottom: 0 !important;
+  }
+
+  .availability-grid label:hover {
+    background: #e8f5f3;
+  }
+
+  .availability-grid input[type="checkbox"] {
+    width: auto;
+    margin: 0;
+  }
+
+  .time-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  .photo-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+    gap: 12px;
+    margin-top: 12px;
+  }
+
+  .photo-item {
+    position: relative;
+    aspect-ratio: 1;
+    border-radius: 8px;
+    overflow: hidden;
+    background: var(--bg);
+  }
+
+  .photo-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .photo-remove {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    background: rgba(0,0,0,0.7);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    font-size: 12px;
   }
 
   .save-button {
@@ -590,6 +706,12 @@
     cursor: pointer;
     transition: all 0.2s ease;
     margin-top: 20px;
+  }
+
+  .save-button:hover {
+    background: #019875;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0, 184, 148, 0.3);
   }
 
   /* BOTTOM NAVIGATION */
@@ -665,6 +787,88 @@
   <!-- OVERLAY -->
   <div class="overlay" id="overlay"></div>
 
+  <!-- LANGUAGE MODAL -->
+  <div class="modal" id="languageModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Select Language</h3>
+        <button class="close-btn" onclick="closeLanguageModal()">
+          <span class="material-icons-round">close</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="language-item selected" onclick="selectLanguage('en', 'English')">
+          <span>🇺🇸 English</span>
+        </div>
+        <div class="language-item" onclick="selectLanguage('hi', 'हिंदी')">
+          <span>🇮🇳 हिंदी (Hindi)</span>
+        </div>
+        <div class="language-item" onclick="selectLanguage('te', 'తెలుగు')">
+          <span>🇮🇳 తెలుగు (Telugu)</span>
+        </div>
+        <div class="language-item" onclick="selectLanguage('ta', 'தமிழ்')">
+          <span>🇮🇳 தமிழ் (Tamil)</span>
+        </div>
+        <div class="language-item" onclick="selectLanguage('kn', 'ಕನ್ನಡ')">
+          <span>🇮🇳 ಕನ್ನಡ (Kannada)</span>
+        </div>
+        <div class="language-item" onclick="selectLanguage('ml', 'മലയാളം')">
+          <span>🇮🇳 മലയാളം (Malayalam)</span>
+        </div>
+        <div class="language-item" onclick="selectLanguage('bn', 'বাংলা')">
+          <span>🇮🇳 বাংলা (Bengali)</span>
+        </div>
+        <div class="language-item" onclick="selectLanguage('gu', 'ગુજરાતી')">
+          <span>🇮🇳 ગુજરાતી (Gujarati)</span>
+        </div>
+        <div class="language-item" onclick="selectLanguage('mr', 'मराठी')">
+          <span>🇮🇳 मराठी (Marathi)</span>
+        </div>
+        <div class="language-item" onclick="selectLanguage('pa', 'ਪੰਜਾਬੀ')">
+          <span>🇮🇳 ਪੰਜਾਬੀ (Punjabi)</span>
+        </div>
+        <div class="language-item" onclick="selectLanguage('ur', 'اردو')">
+          <span>🇮🇳 اردو (Urdu)</span>
+        </div>
+        <div class="language-item" onclick="selectLanguage('or', 'ଓଡ଼ିଆ')">
+          <span>🇮🇳 ଓଡ଼ିଆ (Odia)</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- APPEARANCE MODAL -->
+  <div class="modal" id="appearanceModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Appearance</h3>
+        <button class="close-btn" onclick="closeAppearanceModal()">
+          <span class="material-icons-round">close</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="appearance-item selected" onclick="selectAppearance('default')">
+          <div class="appearance-icon">
+            <span class="material-icons-round">light_mode</span>
+          </div>
+          <div>
+            <h5>Default</h5>
+            <p>System default theme</p>
+          </div>
+        </div>
+        <div class="appearance-item" onclick="selectAppearance('dark')">
+          <div class="appearance-icon">
+            <span class="material-icons-round">dark_mode</span>
+          </div>
+          <div>
+            <h5>Dark</h5>
+            <p>Dark theme for low light</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- HAMBURGER MENU PANEL -->
   <div class="hamburger-panel" id="hamburgerPanel">
     <div class="panel-header">
@@ -679,23 +883,6 @@
         <h4>Recent Searches</h4>
         <div id="searchHistory">
           <!-- Search history will be populated here -->
-        </div>
-      </div>
-      
-      <div class="history-section">
-        <h4>Contacted Services</h4>
-        <div id="contactedServices">
-          <!-- Contacted services will be populated here -->
-        </div>
-      </div>
-    </div>
-    
-    <div class="panel-footer">
-      <div class="profile-card" onclick="navigateTo('profile')">
-        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 48 48'%3E%3Ccircle cx='24' cy='24' r='24' fill='%23e9ecef'/%3E%3Cpath d='M24 12c3.3 0 6 2.7 6 6s-2.7 6-6 6-6-2.7-6-6 2.7-6 6-6zm0 18c5 0 9 3 9 6H15c0-3 4-6 9-6z' fill='%23636e72'/%3E%3C/svg%3E" class="profile-avatar-small" alt="Profile">
-        <div class="profile-info">
-          <h4 id="profileName">Setup Profile</h4>
-          <p id="profileEmail">Add your information</p>
         </div>
       </div>
     </div>
@@ -753,34 +940,23 @@
       <div class="settings-section">
         <h4>App</h4>
         
-        <div class="settings-item">
+        <div class="settings-item" onclick="openLanguageModal()">
           <div class="settings-left">
             <span class="material-icons-round settings-icon">language</span>
             <div class="settings-text">
               <h5>Language</h5>
-              <p>English</p>
+              <p id="currentLanguage">English</p>
             </div>
           </div>
           <span class="material-icons-round">chevron_right</span>
         </div>
         
-        <div class="settings-item">
+        <div class="settings-item" onclick="openAppearanceModal()">
           <div class="settings-left">
-            <span class="material-icons-round settings-icon">dark_mode</span>
+            <span class="material-icons-round settings-icon">palette</span>
             <div class="settings-text">
               <h5>Appearance</h5>
-              <p>System default</p>
-            </div>
-          </div>
-          <span class="material-icons-round">chevron_right</span>
-        </div>
-        
-        <div class="settings-item">
-          <div class="settings-left">
-            <span class="material-icons-round settings-icon">format_size</span>
-            <div class="settings-text">
-              <h5>Font Size</h5>
-              <p>Medium</p>
+              <p id="currentAppearance">Default</p>
             </div>
           </div>
           <span class="material-icons-round">chevron_right</span>
@@ -948,15 +1124,12 @@
     let servicesData = [];
     let fuse;
     let searchHistory = JSON.parse(localStorage.getItem('searchHistory') || '[]');
-    let contactedServices = JSON.parse(localStorage.getItem('contactedServices') || '[]');
 
     // Panel Functions
     function openHamburgerPanel() {
       document.getElementById('hamburgerPanel').classList.add('open');
       document.getElementById('overlay').classList.add('active');
       loadSearchHistory();
-      loadContactedServices();
-      updateProfileInfo();
     }
 
     function closeHamburgerPanel() {
@@ -973,6 +1146,48 @@
     function closeSettingsPanel() {
       document.getElementById('settingsPanel').classList.remove('open');
       document.getElementById('overlay').classList.remove('active');
+    }
+
+    // Language Modal Functions
+    function openLanguageModal() {
+      document.getElementById('languageModal').style.display = 'flex';
+    }
+
+    function closeLanguageModal() {
+      document.getElementById('languageModal').style.display = 'none';
+    }
+
+    function selectLanguage(code, name) {
+      document.querySelectorAll('.language-item').forEach(item => item.classList.remove('selected'));
+      event.target.closest('.language-item').classList.add('selected');
+      document.getElementById('currentLanguage').textContent = name;
+      localStorage.setItem('selectedLanguage', JSON.stringify({code, name}));
+      closeLanguageModal();
+    }
+
+    // Appearance Modal Functions
+    function openAppearanceModal() {
+      document.getElementById('appearanceModal').style.display = 'flex';
+    }
+
+    function closeAppearanceModal() {
+      document.getElementById('appearanceModal').style.display = 'none';
+    }
+
+    function selectAppearance(theme) {
+      document.querySelectorAll('.appearance-item').forEach(item => item.classList.remove('selected'));
+      event.target.closest('.appearance-item').classList.add('selected');
+      
+      if (theme === 'dark') {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        document.getElementById('currentAppearance').textContent = 'Dark';
+      } else {
+        document.documentElement.removeAttribute('data-theme');
+        document.getElementById('currentAppearance').textContent = 'Default';
+      }
+      
+      localStorage.setItem('selectedTheme', theme);
+      closeAppearanceModal();
     }
 
     // Close panels when clicking overlay
@@ -992,21 +1207,8 @@
       };
       
       searchHistory.unshift(historyItem);
-      searchHistory = searchHistory.slice(0, 20); // Keep only last 20
+      searchHistory = searchHistory.slice(0, 20);
       localStorage.setItem('searchHistory', JSON.stringify(searchHistory));
-    }
-
-    function addToContactedServices(service) {
-      const contactedItem = {
-        serviceName: service.fullName || service.title,
-        serviceType: service.serviceType,
-        timestamp: new Date().toISOString(),
-        phone: service.phoneNumber || service.contact?.phone
-      };
-      
-      contactedServices.unshift(contactedItem);
-      contactedServices = contactedServices.slice(0, 15); // Keep only last 15
-      localStorage.setItem('contactedServices', JSON.stringify(contactedServices));
     }
 
     function loadSearchHistory() {
@@ -1030,44 +1232,11 @@
       `).join('');
     }
 
-    function loadContactedServices() {
-      const servicesContainer = document.getElementById('contactedServices');
-      
-      if (contactedServices.length === 0) {
-        servicesContainer.innerHTML = '<p style="color: var(--text-light); font-size: 13px; text-align: center; padding: 20px;">No contacted services yet</p>';
-        return;
-      }
-      
-      servicesContainer.innerHTML = contactedServices.map(item => `
-        <div class="history-item">
-          <div class="history-icon">
-            <span class="material-icons-round">phone</span>
-          </div>
-          <div class="history-info">
-            <h5>${item.serviceName}</h5>
-            <p>${item.serviceType} • ${new Date(item.timestamp).toLocaleDateString()}</p>
-          </div>
-        </div>
-      `).join('');
-    }
-
     function searchFromHistory(query) {
       document.getElementById('search').value = query;
       const inputEvent = new Event('input', { bubbles: true });
       document.getElementById('search').dispatchEvent(inputEvent);
       closeHamburgerPanel();
-    }
-
-    function updateProfileInfo() {
-      const savedProfile = localStorage.getItem('gharseUserProfile');
-      const nameElement = document.getElementById('profileName');
-      const emailElement = document.getElementById('profileEmail');
-      
-      if (savedProfile) {
-        const profile = JSON.parse(savedProfile);
-        nameElement.textContent = profile.fullName || 'User';
-        emailElement.textContent = profile.email || profile.phoneNumber || 'View Profile';
-      }
     }
 
     function updateSettingsProfile() {
@@ -1097,7 +1266,6 @@
       if (confirm('Are you sure you want to log out?')) {
         localStorage.removeItem('gharseUserProfile');
         localStorage.removeItem('searchHistory');
-        localStorage.removeItem('contactedServices');
         alert('Logged out successfully!');
         navigateTo('home');
         closeSettingsPanel();
@@ -1180,6 +1348,7 @@
     function renderProfile() {
       document.getElementById('app').innerHTML = `
         <div class="profile-container">
+          <!-- Profile Photo Section -->
           <div class="profile-photo-section">
             <div class="profile-avatar-container">
               <img id="profilePreview" 
@@ -1199,21 +1368,117 @@
             <p>Help people recognize you</p>
           </div>
 
+          <!-- Profile Form -->
           <form id="profileForm" class="profile-form">
+            
+            <!-- Personal Info -->
             <div class="form-section">
+              <h4>📋 Personal Information</h4>
+              
               <div class="form-group">
-                <input type="text" id="fullName" placeholder="Full Name" required>
+                <label for="fullName">Full Name *</label>
+                <input type="text" id="fullName" placeholder="Enter your full name" required>
               </div>
+
               <div class="form-group">
-                <input type="tel" id="phoneNumber" placeholder="Phone Number" required>
+                <label for="phoneNumber">Phone Number *</label>
+                <input type="tel" id="phoneNumber" placeholder="Enter your phone number" required>
               </div>
+
               <div class="form-group">
-                <input type="email" id="email" placeholder="Email Address">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" placeholder="Enter your email address">
+              </div>
+
+              <div class="form-group">
+                <label for="location">Location</label>
+                <input type="text" id="location" placeholder="City, Area">
+              </div>
+            </div>
+
+            <!-- Service Info -->
+            <div class="form-section">
+              <h4>🛠️ Service Details</h4>
+              
+              <div class="form-group">
+                <label for="serviceType">What service do you provide?</label>
+                <select id="serviceType">
+                  <option value="">Select your service</option>
+                  <option value="plumbing">Plumbing</option>
+                  <option value="electrical">Electrical Work</option>
+                  <option value="tutoring">Tutoring/Teaching</option>
+                  <option value="cleaning">House Cleaning</option>
+                  <option value="repairs">Home Repairs</option>
+                  <option value="beauty">Beauty Services</option>
+                  <option value="cooking">Cooking/Catering</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="experience">Experience</label>
+                <select id="experience">
+                  <option value="">Select experience</option>
+                  <option value="0-1">New (0-1 years)</option>
+                  <option value="1-3">1-3 years</option>
+                  <option value="3-5">3-5 years</option>
+                  <option value="5-10">5-10 years</option>
+                  <option value="10+">Expert (10+ years)</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="rate">Your Rate (₹ per hour)</label>
+                <input type="number" id="rate" placeholder="e.g., 200">
+              </div>
+            </div>
+
+            <!-- About Section -->
+            <div class="form-section">
+              <h4>📝 About Your Service</h4>
+              
+              <div class="form-group">
+                <label for="description">Tell people about your service</label>
+                <textarea id="description" placeholder="Describe your service, experience, and what makes you special..." rows="4"></textarea>
+              </div>
+
+              <div class="form-group">
+                <label for="workPhotos">Upload Work Photos</label>
+                <input type="file" id="workPhotos" accept="image/*" multiple>
+                <small>Show examples of your work (up to 5 photos)</small>
+              </div>
+
+              <div id="photoPreview" class="photo-grid"></div>
+            </div>
+
+            <!-- Availability -->
+            <div class="form-section">
+              <h4>⏰ When are you available?</h4>
+              
+              <div class="availability-grid">
+                <label><input type="checkbox" value="monday"> Monday</label>
+                <label><input type="checkbox" value="tuesday"> Tuesday</label>
+                <label><input type="checkbox" value="wednesday"> Wednesday</label>
+                <label><input type="checkbox" value="thursday"> Thursday</label>
+                <label><input type="checkbox" value="friday"> Friday</label>
+                <label><input type="checkbox" value="saturday"> Saturday</label>
+                <label><input type="checkbox" value="sunday"> Sunday</label>
+              </div>
+
+              <div class="time-row">
+                <div class="form-group">
+                  <label for="startTime">From</label>
+                  <input type="time" id="startTime">
+                </div>
+                <div class="form-group">
+                  <label for="endTime">To</label>
+                  <input type="time" id="endTime">
+                </div>
               </div>
             </div>
 
             <button type="submit" class="save-button">
-              💾 Save Profile
+              💾 Save My Profile
             </button>
           </form>
         </div>
@@ -1222,19 +1487,44 @@
       initProfileForm();
     }
 
-    // Profile Form
+    // Profile Form Functions
     function initProfileForm() {
+      // Profile photo preview
       document.getElementById('profilePhotoInput').addEventListener('change', function(e) {
         const file = e.target.files[0];
         if (file) {
           const reader = new FileReader();
           reader.onload = function(e) {
             document.getElementById('profilePreview').src = e.target.result;
+            document.querySelector('.profile-photo-section h3').textContent = 'Profile Photo';
+            document.querySelector('.profile-photo-section p').textContent = 'Tap to change photo';
           };
           reader.readAsDataURL(file);
         }
       });
 
+      // Work photos preview
+      document.getElementById('workPhotos').addEventListener('change', function(e) {
+        const files = Array.from(e.target.files);
+        const photoGrid = document.getElementById('photoPreview');
+        photoGrid.innerHTML = '';
+
+        files.slice(0, 5).forEach((file, index) => {
+          const reader = new FileReader();
+          reader.onload = function(e) {
+            const photoDiv = document.createElement('div');
+            photoDiv.className = 'photo-item';
+            photoDiv.innerHTML = `
+              <img src="${e.target.result}" alt="Work photo">
+              <button type="button" class="photo-remove" onclick="this.parentElement.remove()">×</button>
+            `;
+            photoGrid.appendChild(photoDiv);
+          };
+          reader.readAsDataURL(file);
+        });
+      });
+
+      // Form submission
       document.getElementById('profileForm').addEventListener('submit', function(e) {
         e.preventDefault();
         
@@ -1242,21 +1532,40 @@
           fullName: document.getElementById('fullName').value,
           phoneNumber: document.getElementById('phoneNumber').value,
           email: document.getElementById('email').value,
+          location: document.getElementById('location').value,
+          serviceType: document.getElementById('serviceType').value,
+          experience: document.getElementById('experience').value,
+          rate: document.getElementById('rate').value,
+          description: document.getElementById('description').value,
+          startTime: document.getElementById('startTime').value,
+          endTime: document.getElementById('endTime').value,
+          availability: Array.from(document.querySelectorAll('input[type="checkbox"]:checked')).map(cb => cb.value),
           createdAt: new Date().toISOString()
         };
 
         localStorage.setItem('gharseUserProfile', JSON.stringify(profileData));
-        alert('🎉 Profile saved successfully!');
-        navigateTo('home');
+        alert('🎉 Profile saved successfully!\n\nYour service is now live for customers to see.');
+        setTimeout(() => navigateTo('home'), 1000);
       });
 
       // Load existing data
       const savedProfile = localStorage.getItem('gharseUserProfile');
       if (savedProfile) {
         const data = JSON.parse(savedProfile);
-        document.getElementById('fullName').value = data.fullName || '';
-        document.getElementById('phoneNumber').value = data.phoneNumber || '';
-        document.getElementById('email').value = data.email || '';
+        
+        Object.keys(data).forEach(key => {
+          if (key !== 'availability') {
+            const element = document.getElementById(key);
+            if (element) element.value = data[key];
+          }
+        });
+
+        if (data.availability) {
+          data.availability.forEach(day => {
+            const checkbox = document.querySelector(`input[value="${day}"]`);
+            if (checkbox) checkbox.checked = true;
+          });
+        }
       }
     }
 
@@ -1346,7 +1655,6 @@
       
       if (query) {
         addToSearchHistory(query);
-        // Implement actual search here
         document.getElementById('app').innerHTML = `
           <h2 style="margin: 20px 0; font-size: 24px;">Search Results for "${query}"</h2>
           <p style="text-align: center; color: var(--text-light);">No results found</p>
@@ -1358,6 +1666,19 @@
 
     // Initialize Everything
     window.addEventListener('load', () => {
+      // Load saved preferences
+      const savedTheme = localStorage.getItem('selectedTheme');
+      if (savedTheme === 'dark') {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        document.getElementById('currentAppearance').textContent = 'Dark';
+      }
+      
+      const savedLanguage = localStorage.getItem('selectedLanguage');
+      if (savedLanguage) {
+        const lang = JSON.parse(savedLanguage);
+        document.getElementById('currentLanguage').textContent = lang.name;
+      }
+      
       initVoiceSearch();
       renderCurrentRoute();
     });
