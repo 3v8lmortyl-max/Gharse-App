@@ -1,5 +1,5 @@
 
-   <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -137,7 +137,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    flex-shrink: 0; /* Prevent header from shrinking */
+    flex-shrink: 0;
   }
 
   .panel-header h3 {
@@ -169,7 +169,7 @@
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
     padding: 20px;
-    height: 0; /* Critical for mobile scrolling */
+    height: 0;
     overscroll-behavior: contain;
   }
 
@@ -178,7 +178,7 @@
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
     padding: 20px;
-    height: 0; /* Critical for mobile scrolling */
+    height: 0;
     overscroll-behavior: contain;
   }
 
@@ -186,11 +186,15 @@
   @supports (-webkit-overflow-scrolling: touch) {
     .panel-content,
     .settings-content {
-      transform: translateZ(0); /* Force hardware acceleration */
+      transform: translateZ(0);
     }
   }
 
-  /* HISTORY STYLES */
+  /* HISTORY STYLES WITH DELETE FUNCTIONALITY */
+  .history-section {
+    margin-bottom: 24px;
+  }
+
   .history-section h4 {
     font-size: 14px;
     font-weight: 600;
@@ -198,6 +202,25 @@
     margin-bottom: 12px;
     text-transform: uppercase;
     letter-spacing: 0.5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .clear-all-btn {
+    background: #e74c3c;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 6px 12px;
+    font-size: 11px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .clear-all-btn:hover {
+    background: #c0392b;
+    transform: scale(1.05);
   }
 
   .history-item {
@@ -209,6 +232,7 @@
     margin-bottom: 8px;
     cursor: pointer;
     transition: all 0.2s ease;
+    position: relative;
   }
 
   .history-item:hover {
@@ -225,6 +249,11 @@
     justify-content: center;
     color: white;
     font-size: 18px;
+    flex-shrink: 0;
+  }
+
+  .history-info {
+    flex: 1;
   }
 
   .history-info h5 {
@@ -238,10 +267,31 @@
     color: var(--text-light);
   }
 
+  .delete-item-btn {
+    width: 24px;
+    height: 24px;
+    background: #e74c3c;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 14px;
+    flex-shrink: 0;
+  }
+
+  .delete-item-btn:hover {
+    background: #c0392b;
+    transform: scale(1.1);
+  }
+
   .panel-footer {
     padding: 20px;
     border-top: 1px solid var(--border);
-    flex-shrink: 0; /* Prevent footer from shrinking */
+    flex-shrink: 0;
   }
 
   .profile-card {
@@ -279,7 +329,7 @@
     color: var(--text-light);
   }
 
-  /* SETTINGS STYLES */
+  /* SIMPLIFIED SETTINGS STYLES */
   .settings-section {
     margin-bottom: 32px;
   }
@@ -369,7 +419,7 @@
     left: 22px;
   }
 
-  /* MODAL STYLES */
+  /* CONTACT MODAL */
   .modal {
     position: fixed;
     top: 0;
@@ -407,41 +457,43 @@
     flex: 1;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
+    padding: 20px;
   }
 
-  .language-item, .appearance-item {
+  .contact-info {
+    text-align: center;
+  }
+
+  .contact-item {
     display: flex;
     align-items: center;
-    padding: 16px 20px;
-    cursor: pointer;
-    transition: background 0.2s ease;
-  }
-
-  .language-item:hover, .appearance-item:hover {
+    gap: 16px;
+    padding: 16px;
+    margin-bottom: 12px;
     background: var(--bg);
+    border-radius: 12px;
+    transition: all 0.2s ease;
   }
 
-  .language-item.selected, .appearance-item.selected {
+  .contact-item:hover {
     background: var(--primary);
     color: white;
   }
 
-  .appearance-item {
-    gap: 16px;
-  }
-
-  .appearance-icon {
-    width: 32px;
-    height: 32px;
+  .contact-icon {
+    width: 40px;
+    height: 40px;
+    background: var(--primary);
+    border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 8px;
-    background: var(--bg);
+    color: white;
   }
 
-  .appearance-item.selected .appearance-icon {
-    background: rgba(255,255,255,0.2);
+  .contact-item:hover .contact-icon {
+    background: white;
+    color: var(--primary);
   }
 
   /* OVERLAY */
@@ -911,89 +963,64 @@
   <!-- OVERLAY -->
   <div class="overlay" id="overlay"></div>
 
-  <!-- LANGUAGE MODAL -->
-  <div class="modal" id="languageModal">
+  <!-- CONTACT MODAL -->
+  <div class="modal" id="contactModal">
     <div class="modal-content">
       <div class="modal-header">
-        <h3>Select Language</h3>
-        <button class="close-btn" onclick="closeLanguageModal()">
+        <h3>Contact Us</h3>
+        <button class="close-btn" onclick="closeContactModal()">
           <span class="material-icons-round">close</span>
         </button>
       </div>
       <div class="modal-body">
-        <div class="language-item selected" onclick="selectLanguage('en', 'English')">
-          <span>🇺🇸 English</span>
-        </div>
-        <div class="language-item" onclick="selectLanguage('hi', 'हिंदी')">
-          <span>🇮🇳 हिंदी (Hindi)</span>
-        </div>
-        <div class="language-item" onclick="selectLanguage('te', 'తెలుగు')">
-          <span>🇮🇳 తెలుగు (Telugu)</span>
-        </div>
-        <div class="language-item" onclick="selectLanguage('ta', 'தமிழ்')">
-          <span>🇮🇳 தमिழ் (Tamil)</span>
-        </div>
-        <div class="language-item" onclick="selectLanguage('kn', 'ಕನ್ನಡ')">
-          <span>🇮🇳 ಕನ್ನಡ (Kannada)</span>
-        </div>
-        <div class="language-item" onclick="selectLanguage('ml', 'മലയാളം')">
-          <span>🇮🇳 മലയാളം (Malayalam)</span>
-        </div>
-        <div class="language-item" onclick="selectLanguage('bn', 'বাংলা')">
-          <span>🇮🇳 বাংলা (Bengali)</span>
-        </div>
-        <div class="language-item" onclick="selectLanguage('gu', 'ગુજરાતી')">
-          <span>🇮🇳 ગુજરાતી (Gujarati)</span>
-        </div>
-        <div class="language-item" onclick="selectLanguage('mr', 'मराठी')">
-          <span>🇮🇳 मराठी (Marathi)</span>
-        </div>
-        <div class="language-item" onclick="selectLanguage('pa', 'ਪੰਜਾਬੀ')">
-          <span>🇮🇳 ਪੰਜਾਬੀ (Punjabi)</span>
-        </div>
-        <div class="language-item" onclick="selectLanguage('ur', 'اردو')">
-          <span>🇮🇳 اردو (Urdu)</span>
-        </div>
-        <div class="language-item" onclick="selectLanguage('or', 'ଓଡ଼ିଆ')">
-          <span>🇮🇳 ଓଡ଼ିଆ (Odia)</span>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- APPEARANCE MODAL -->
-  <div class="modal" id="appearanceModal">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h3>Appearance</h3>
-        <button class="close-btn" onclick="closeAppearanceModal()">
-          <span class="material-icons-round">close</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <div class="appearance-item selected" onclick="selectAppearance('default')">
-          <div class="appearance-icon">
-            <span class="material-icons-round">light_mode</span>
+        <div class="contact-info">
+          <h4 style="margin-bottom: 20px; color: var(--text);">Get in touch with us</h4>
+          
+          <div class="contact-item">
+            <div class="contact-icon">
+              <span class="material-icons-round">email</span>
+            </div>
+            <div>
+              <h5>Email</h5>
+              <p>support@gharse.com</p>
+            </div>
           </div>
-          <div>
-            <h5>Default</h5>
-            <p>System default theme</p>
+          
+          <div class="contact-item">
+            <div class="contact-icon">
+              <span class="material-icons-round">phone</span>
+            </div>
+            <div>
+              <h5>Phone</h5>
+              <p>+91 98765 43210</p>
+            </div>
           </div>
-        </div>
-        <div class="appearance-item" onclick="selectAppearance('dark')">
-          <div class="appearance-icon">
-            <span class="material-icons-round">dark_mode</span>
+          
+          <div class="contact-item">
+            <div class="contact-icon">
+              <span class="material-icons-round">location_on</span>
+            </div>
+            <div>
+              <h5>Office</h5>
+              <p>Hyderabad, Telangana</p>
+            </div>
           </div>
-          <div>
-            <h5>Dark</h5>
-            <p>Dark theme for low light</p>
+          
+          <div class="contact-item">
+            <div class="contact-icon">
+              <span class="material-icons-round">schedule</span>
+            </div>
+            <div>
+              <h5>Hours</h5>
+              <p>Mon-Sat: 9 AM - 6 PM</p>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- HAMBURGER MENU PANEL -->
+  <!-- HAMBURGER MENU PANEL WITH DELETE FUNCTIONALITY -->
   <div class="hamburger-panel" id="hamburgerPanel">
     <div class="panel-header">
       <h3>Search History</h3>
@@ -1004,7 +1031,10 @@
     
     <div class="panel-content">
       <div class="history-section">
-        <h4>Recent Searches</h4>
+        <h4>
+          Recent Searches
+          <button class="clear-all-btn" onclick="clearAllHistory()">Clear All</button>
+        </h4>
         <div id="searchHistory">
           <!-- Search history will be populated here -->
         </div>
@@ -1022,7 +1052,7 @@
     </div>
   </div>
 
-  <!-- SETTINGS PANEL - FIXED SCROLLING -->
+  <!-- SIMPLIFIED SETTINGS PANEL -->
   <div class="settings-panel" id="settingsPanel">
     <div class="panel-header">
       <h3>Settings</h3>
@@ -1074,23 +1104,23 @@
       <div class="settings-section">
         <h4>App</h4>
         
-        <div class="settings-item" onclick="openLanguageModal()">
+        <div class="settings-item">
           <div class="settings-left">
             <span class="material-icons-round settings-icon">language</span>
             <div class="settings-text">
               <h5>Language</h5>
-              <p id="currentLanguage">English</p>
+              <p>English</p>
             </div>
           </div>
           <span class="material-icons-round">chevron_right</span>
         </div>
         
-        <div class="settings-item" onclick="openAppearanceModal()">
+        <div class="settings-item">
           <div class="settings-left">
             <span class="material-icons-round settings-icon">palette</span>
             <div class="settings-text">
               <h5>Appearance</h5>
-              <p id="currentAppearance">Default</p>
+              <p>Default</p>
             </div>
           </div>
           <span class="material-icons-round">chevron_right</span>
@@ -1119,60 +1149,16 @@
         </div>
       </div>
 
-      <!-- About Section -->
+      <!-- Only Contact Us -->
       <div class="settings-section">
         <h4>About</h4>
         
-        <div class="settings-item">
-          <div class="settings-left">
-            <span class="material-icons-round settings-icon">system_update</span>
-            <div class="settings-text">
-              <h5>Check for Updates</h5>
-              <p>v1.2.7 (Current)</p>
-            </div>
-          </div>
-          <span class="material-icons-round">chevron_right</span>
-        </div>
-        
-        <div class="settings-item">
-          <div class="settings-left">
-            <span class="material-icons-round settings-icon">description</span>
-            <div class="settings-text">
-              <h5>Terms of Service</h5>
-              <p>Service agreement</p>
-            </div>
-          </div>
-          <span class="material-icons-round">chevron_right</span>
-        </div>
-        
-        <div class="settings-item">
-          <div class="settings-left">
-            <span class="material-icons-round settings-icon">privacy_tip</span>
-            <div class="settings-text">
-              <h5>Privacy Policy</h5>
-              <p>How we protect your data</p>
-            </div>
-          </div>
-          <span class="material-icons-round">chevron_right</span>
-        </div>
-        
-        <div class="settings-item">
+        <div class="settings-item" onclick="openContactModal()">
           <div class="settings-left">
             <span class="material-icons-round settings-icon">contact_support</span>
             <div class="settings-text">
               <h5>Contact Us</h5>
               <p>Get help and support</p>
-            </div>
-          </div>
-          <span class="material-icons-round">chevron_right</span>
-        </div>
-        
-        <div class="settings-item">
-          <div class="settings-left">
-            <span class="material-icons-round settings-icon">star_rate</span>
-            <div class="settings-text">
-              <h5>Rate App</h5>
-              <p>Share your feedback</p>
             </div>
           </div>
           <span class="material-icons-round">chevron_right</span>
@@ -1283,46 +1269,13 @@
       document.getElementById('overlay').classList.remove('active');
     }
 
-    // Language Modal Functions
-    function openLanguageModal() {
-      document.getElementById('languageModal').style.display = 'flex';
+    // Contact Modal Functions
+    function openContactModal() {
+      document.getElementById('contactModal').style.display = 'flex';
     }
 
-    function closeLanguageModal() {
-      document.getElementById('languageModal').style.display = 'none';
-    }
-
-    function selectLanguage(code, name) {
-      document.querySelectorAll('.language-item').forEach(item => item.classList.remove('selected'));
-      event.target.closest('.language-item').classList.add('selected');
-      document.getElementById('currentLanguage').textContent = name;
-      localStorage.setItem('selectedLanguage', JSON.stringify({code, name}));
-      closeLanguageModal();
-    }
-
-    // Appearance Modal Functions
-    function openAppearanceModal() {
-      document.getElementById('appearanceModal').style.display = 'flex';
-    }
-
-    function closeAppearanceModal() {
-      document.getElementById('appearanceModal').style.display = 'none';
-    }
-
-    function selectAppearance(theme) {
-      document.querySelectorAll('.appearance-item').forEach(item => item.classList.remove('selected'));
-      event.target.closest('.appearance-item').classList.add('selected');
-      
-      if (theme === 'dark') {
-        document.documentElement.setAttribute('data-theme', 'dark');
-        document.getElementById('currentAppearance').textContent = 'Dark';
-      } else {
-        document.documentElement.removeAttribute('data-theme');
-        document.getElementById('currentAppearance').textContent = 'Default';
-      }
-      
-      localStorage.setItem('selectedTheme', theme);
-      closeAppearanceModal();
+    function closeContactModal() {
+      document.getElementById('contactModal').style.display = 'none';
     }
 
     // Close panels when clicking overlay
@@ -1331,19 +1284,38 @@
       closeSettingsPanel();
     });
 
-    // Search History Functions
+    // History Functions with Delete Capability
     function addToSearchHistory(query) {
       if (query.trim() === '') return;
       
       const historyItem = {
+        id: Date.now(), // Unique ID for deletion
         query: query,
         timestamp: new Date().toISOString(),
         type: 'search'
       };
       
+      // Remove duplicate if exists
+      searchHistory = searchHistory.filter(item => item.query !== query);
       searchHistory.unshift(historyItem);
-      searchHistory = searchHistory.slice(0, 20);
+      searchHistory = searchHistory.slice(0, 20); // Keep only last 20
       localStorage.setItem('searchHistory', JSON.stringify(searchHistory));
+    }
+
+    function deleteHistoryItem(itemId) {
+      if (confirm('Delete this search from history?')) {
+        searchHistory = searchHistory.filter(item => item.id !== itemId);
+        localStorage.setItem('searchHistory', JSON.stringify(searchHistory));
+        loadSearchHistory(); // Refresh the display
+      }
+    }
+
+    function clearAllHistory() {
+      if (confirm('Delete all search history? This cannot be undone.')) {
+        searchHistory = [];
+        localStorage.removeItem('searchHistory');
+        loadSearchHistory(); // Refresh the display
+      }
     }
 
     function loadSearchHistory() {
@@ -1355,14 +1327,17 @@
       }
       
       historyContainer.innerHTML = searchHistory.map(item => `
-        <div class="history-item" onclick="searchFromHistory('${item.query}')">
+        <div class="history-item">
           <div class="history-icon">
             <span class="material-icons-round">search</span>
           </div>
-          <div class="history-info">
+          <div class="history-info" onclick="searchFromHistory('${item.query}')">
             <h5>${item.query}</h5>
             <p>${new Date(item.timestamp).toLocaleDateString()}</p>
           </div>
+          <button class="delete-item-btn" onclick="deleteHistoryItem(${item.id})" title="Delete this search">
+            ×
+          </button>
         </div>
       `).join('');
     }
@@ -1813,19 +1788,6 @@
 
     // Initialize Everything
     window.addEventListener('load', () => {
-      // Load saved preferences
-      const savedTheme = localStorage.getItem('selectedTheme');
-      if (savedTheme === 'dark') {
-        document.documentElement.setAttribute('data-theme', 'dark');
-        document.getElementById('currentAppearance').textContent = 'Dark';
-      }
-      
-      const savedLanguage = localStorage.getItem('selectedLanguage');
-      if (savedLanguage) {
-        const lang = JSON.parse(savedLanguage);
-        document.getElementById('currentLanguage').textContent = lang.name;
-      }
-      
       initVoiceSearch();
       renderCurrentRoute();
     });
